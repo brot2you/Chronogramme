@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chronogramme — l’enquête historique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Figtree:wght@400;500;600;700;800&family=Lexend:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --soft:#F3F4FA; --surface:#FFFFFF; --ink:#151A3A; --ink-soft:#5C6285; --line:rgba(21,26,58,.12);
+  --accent:#4B3FD8; --accent-ink:#FFFFFF; --ok:#14865A; --ok-soft:#DDF5EA; --ko:#D02B4E; --ko-soft:#FDE3E9; --heart:#E8436A;
+  --p-pre:#F29B38; --p-ant:#22B39B; --p-moy:#8B6CF0; --p-mod:#F0587E; --p-cont:#3D86F0;
+  --t-pre:#FFE3BF; --t-ant:#C8F0E5; --t-moy:#E4DBFF; --t-mod:#FFD6E0; --t-cont:#D4E6FF; --media-ink:#151A3A;
+  --spectrum:linear-gradient(90deg,#E58A00,#0E9C9A 28%,#6B4FBB 52%,#E8436A 76%,#2D63E8);
+  --display:"Unbounded", "Trebuchet MS", Arial, sans-serif;
+  --sans:"Figtree", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1330; --soft:#171C40; --surface:#1B2149; --ink:#F3F1FF; --ink-soft:#AEB2D6; --line:rgba(243,241,255,.15);
+    --accent:#9D93FF; --accent-ink:#120E3A; --ok:#5EE0A6; --ok-soft:#14372B; --ko:#FF7D98; --ko-soft:#43182A; --heart:#FF6F91;
+    --p-pre:#F29B38; --p-ant:#22B39B; --p-moy:#8B6CF0; --p-mod:#F0587E; --p-cont:#3D86F0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1330; --soft:#171C40; --surface:#1B2149; --ink:#F3F1FF; --ink-soft:#AEB2D6; --line:rgba(243,241,255,.15);
+  --accent:#9D93FF; --accent-ink:#120E3A; --ok:#5EE0A6; --ok-soft:#14372B; --ko:#FF7D98; --ko-soft:#43182A; --heart:#FF6F91;
+  --p-pre:#F29B38; --p-ant:#22B39B; --p-moy:#8B6CF0; --p-mod:#F0587E; --p-cont:#3D86F0;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 60px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:var(--sans);font-size:1rem;line-height:1.5}
+body.dys{--display:"Lexend", Verdana, Arial, sans-serif;--sans:"Lexend", Verdana, Arial, sans-serif;letter-spacing:.03em;word-spacing:.12em;line-height:1.7}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+[hidden]{display:none !important}
+.col{max-width:560px;margin:0 auto;background:var(--bg);min-height:100vh;padding-bottom:84px;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+
+/* Barre du haut */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px}
+.brand{font-family:var(--display);font-weight:700;font-size:1.35rem;letter-spacing:-.02em;margin:0;background:var(--spectrum);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pts{border:1px solid var(--line);border-radius:999px;padding:.3rem .8rem;font-weight:800;font-size:.9rem;background:var(--bg);cursor:pointer;min-height:36px}
+
+/* Intro */
+.hello{padding:14px 16px 4px}
+.hello p{margin:0;color:var(--ink-soft);font-size:.95rem;max-width:46ch}
+
+/* Stories = périodes */
+.stories{display:flex;gap:14px;overflow-x:auto;padding:12px 16px 10px;scrollbar-width:none}
+.stories::-webkit-scrollbar{display:none}
+.story{flex:0 0 auto;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;width:72px;padding:0}
+.ring{width:66px;height:66px;border-radius:50%;padding:3px;background:var(--pc)}
+.ring span{display:flex;width:100%;height:100%;border-radius:50%;border:3px solid var(--bg);background:var(--pt);color:var(--media-ink);align-items:center;justify-content:center;font-size:1.9rem;line-height:1}
+.story.all .ring{background:var(--spectrum)}
+.story.all .ring span{background:var(--soft);color:var(--ink);font-family:var(--display);font-weight:700;font-size:.85rem}
+.story b{font-size:.74rem;font-weight:700;line-height:1.15;text-align:center;color:var(--ink-soft)}
+.story small{font-size:.7rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.story[aria-pressed="true"] b{color:var(--ink)}
+.story[aria-pressed="true"] .ring{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--ink)}
+.story[aria-pressed="true"] b{font-weight:800}
+.story.done .ring{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--ok)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:2px 16px 12px;border-bottom:1px solid var(--line)}
+.chip{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:.25rem .75rem;cursor:pointer;font-weight:700;font-size:.88rem;min-height:34px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.plain{margin-left:auto;font-weight:600}
+
+/* Publication */
+.post{border-bottom:1px solid var(--line);padding-bottom:12px}
+.ph{display:flex;align-items:center;gap:10px;padding:12px 16px 10px}
+.av{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:var(--pt);color:var(--media-ink);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:1rem;box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--pc)}
+.ph-t{flex:1 1 auto;min-width:0}
+.ph-t b{display:block;font-weight:800;font-size:.95rem;line-height:1.2}
+.ph-t span{display:block;font-size:.84rem;color:var(--ink-soft);line-height:1.3}
+.ph-t .lock{color:var(--accent);font-weight:700}
+.mtag{flex:0 0 auto;font-size:.75rem;font-weight:800;border-radius:999px;padding:.15rem .6rem;background:var(--pt);color:var(--media-ink)}
+.media{position:relative;aspect-ratio:5/4;background:var(--pt);color:var(--media-ink);display:flex;flex-direction:column;justify-content:flex-end;padding:22px;overflow:hidden}
+.media::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(255,255,255,.65),transparent 55%)}
+.media .em{position:absolute;left:20px;top:16px;font-size:clamp(3.4rem,15vw,4.8rem);line-height:1}
+.media .ml{border-left:4px solid var(--pc);padding-left:.5rem}
+.media .ml{position:relative;font-size:.85rem;font-weight:700;opacity:.85;margin-bottom:.5rem;max-width:32ch}
+.media h2{position:relative;margin:0;font-family:var(--display);font-weight:700;font-size:clamp(1.45rem,6.4vw,2.15rem);line-height:1.12;letter-spacing:-.015em;max-width:15ch}
+.stamp{position:absolute;top:18px;right:16px;width:110px;height:110px;border-radius:50%;border:4px double var(--media-ink);color:var(--media-ink);display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--display);font-weight:800;font-size:.78rem;line-height:1.15;transform:rotate(-14deg);padding:10px;background:rgba(255,255,255,.5)}
+.stamp.mem{border-style:solid;border-width:2px;transform:none}
+.stamp.pop{animation:pop .5s cubic-bezier(.2,1.6,.4,1) 1}
+@keyframes pop{0%{transform:rotate(-14deg) scale(2.2);opacity:0}100%{transform:rotate(-14deg) scale(1);opacity:1}}
+.acts{display:flex;align-items:center;gap:6px;padding:8px 10px 2px}
+.ib{border:0;background:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:8px;border-radius:10px;font-weight:800;font-size:.92rem;min-height:44px}
+.ib svg{width:26px;height:26px}
+.ib.like[aria-pressed="true"]{color:var(--heart)}
+.ib.like[aria-pressed="true"] svg path{fill:var(--heart)}
+.ib.like.beat svg{animation:beat .35s ease 1}
+@keyframes beat{50%{transform:scale(1.3)}}
+.enq{margin-left:auto;border:0;cursor:pointer;background:var(--ink);color:var(--bg);border-radius:999px;padding:.55rem 1rem;font-weight:800;display:inline-flex;gap:.45rem;align-items:center;min-height:42px}
+.enq svg{width:18px;height:18px}
+.enq.solved{background:var(--ok-soft);color:var(--ok)}
+.cap{padding:2px 16px 0;margin:0;line-height:1.5}
+.cap b{font-weight:800}
+.tags{padding:4px 16px 0;margin:0;color:var(--accent);font-weight:700;font-size:.9rem}
+
+/* Mission */
+.mis{margin:12px 16px 4px;border:2px solid var(--pt);border-radius:16px;padding:14px 14px 12px;background:var(--bg)}
+.mis-h{font-family:var(--display);font-weight:700;font-size:1rem;margin:0 0 .3rem}
+.mis-c{margin:0 0 .7rem;color:var(--ink-soft);font-size:.93rem}
+.words{line-height:2.1;font-size:1.02rem}
+.w{border:0;background:none;padding:.1rem .15rem;border-radius:6px;cursor:pointer;font-size:inherit;line-height:1.4}
+.w:hover{background:var(--soft)}
+.w.no{background:var(--ko-soft);color:var(--ko);text-decoration:line-through}
+.w.yes{background:var(--ok-soft);color:var(--ok);font-weight:800;box-shadow:inset 0 -2px 0 var(--ok)}
+.w:disabled{cursor:default}
+.opts{display:grid;gap:8px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opt{text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:.7rem .9rem;cursor:pointer;font-weight:700;font-size:.98rem;min-height:48px}
+.opts.two .opt{text-align:center;font-family:var(--display);font-weight:700}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt:disabled{cursor:default}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok);border-width:2px}
+.opt.ko{background:var(--ko-soft);border-color:var(--ko);border-width:2px}
+.fb{border-radius:12px;padding:.7rem .9rem;margin-top:10px;line-height:1.5;font-size:.95rem}
+.fb.ok{background:var(--ok-soft)} .fb.ko{background:var(--ko-soft)} .fb.neutral{background:var(--soft)}
+.fb b{display:block}
+.empty{padding:40px 24px;text-align:center;color:var(--ink-soft)}
+.empty b{display:block;font-family:var(--display);color:var(--ink);font-size:1.1rem;margin-bottom:.3rem}
+
+/* Carnet */
+.carnet{padding:18px 16px 30px}
+.rank{border-radius:20px;padding:20px;background:var(--ink);color:var(--bg);position:relative;overflow:hidden}
+.rank::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--spectrum)}
+.rank small{display:block;font-weight:700;opacity:.75}
+.rank h2{margin:.15rem 0 .4rem;font-family:var(--display);font-weight:700;font-size:1.6rem;line-height:1.15}
+.rank p{margin:0;font-weight:700}
+.bar{height:10px;background:var(--line);border-radius:5px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ok)}
+.rank .bar{background:rgba(255,255,255,.2);margin-top:10px}
+.rank .bar i{background:var(--bg)}
+.sec-h{font-family:var(--display);font-weight:700;font-size:1.1rem;margin:24px 0 10px}
+.prow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;margin-bottom:10px}
+.prow .dot{font-size:1.4rem;line-height:1}
+.prow .bar i{background:var(--pc)}
+.prow b{font-size:.92rem}
+.prow span{font-size:.85rem;color:var(--ink-soft);font-weight:700;font-variant-numeric:tabular-nums}
+.pl{display:flex;flex-direction:column;gap:2px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{border:1px solid var(--line);border-radius:14px;padding:.7rem .8rem}
+.stat b{display:block;font-family:var(--display);font-size:1.3rem}
+.stat span{font-size:.85rem;color:var(--ink-soft);font-weight:700}
+.settings{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:.55rem 1rem;font-weight:800;cursor:pointer;min-height:44px}
+.btn.danger{color:var(--ko);border-color:var(--ko)}
+.howto{margin:0;padding-left:1.2rem;color:var(--ink-soft)}
+.howto li{margin-bottom:.35rem}
+.howto b{color:var(--ink)}
+
+/* Navigation du bas */
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--bg);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.nav-in{max-width:560px;margin:0 auto;display:flex}
+.nb{flex:1 1 0;border:0;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px 8px;font-size:.75rem;font-weight:700;color:var(--ink-soft);min-height:56px}
+.nb svg{width:24px;height:24px}
+.nb[aria-current="page"]{color:var(--ink)}
+.nb .badge{display:inline-block;min-width:1.4em;padding:0 .35em;border-radius:999px;background:var(--heart);color:#fff;font-size:.68rem;line-height:1.4;margin-left:2px}
+
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+<div class="col">
+  <header class="top">
+    <h1 class="brand">Chronogramme</h1>
+    <button class="pts" id="pts" type="button">0 pt</button>
+  </header>
+  <main>
+    <section id="v-fil">
+      <div class="hello"><p>Des témoins du passé publient. Certains se trompent, d’autres mentent ou exagèrent. À toi d’enquêter sur chaque publication.</p></div>
+      <div class="stories" id="stories" role="group" aria-label="Choisir une période"></div>
+      <div class="filters" id="filters"></div>
+      <div id="feed"></div>
+    </section>
+    <section id="v-carnet" hidden><div class="carnet" id="carnet"></div></section>
+  </main>
+</div>
+<nav class="nav" aria-label="Navigation">
+  <div class="nav-in">
+    <button class="nb" type="button" data-v="fil" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Fil</button>
+    <button class="nb" type="button" data-v="todo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span>À résoudre <span class="badge" id="todo-n">0</span></span></button>
+    <button class="nb" type="button" data-v="carnet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h11a2 2 0 0 1 2 2v16l-7.5-4L4 21V5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Mon carnet</button>
+  </div>
+</nav>
+<script type="application/json" id="posts-data">{"posts": [{"id": "p1", "n": "6", "p": "pre", "y": -18000, "who": "Kao, chasseur", "av": "K", "lieu": "Vallée de la Vézère", "date": "vers 18 000 av. J.-C.", "m": "Nuit de peinture au fond de la grotte", "t": "Aujourd’hui, on a peint des chevaux et des aurochs au fond de la grotte, à la lueur des lampes à graisse. Demain, on suit les rennes vers le sud, puis on rentrera récolter [[le blé de nos champs]].", "tags": ["Préhistoire", "Lascaux"], "mi": {"type": "ana", "x": "Au Paléolithique, les humains sont des chasseurs-cueilleurs nomades. L’agriculture n’apparaît qu’au Néolithique, vers 10 000 av. J.-C. au Proche-Orient, et bien plus tard en France."}, "e": "🎨", "ch": "Les débuts de l’humanité"}, {"id": "p2", "n": "6", "p": "ant", "y": -3200, "who": "Nabû, apprenti scribe", "av": "N", "lieu": "Uruk, Mésopotamie", "date": "vers 3200 av. J.-C.", "m": "Trente sacs d’orge pour le temple", "t": "Je viens de finir ma tablette d’argile : trente sacs d’orge livrés au temple, vingt moutons pour le palais. Mon maître dit que ces signes vont tout changer.", "tags": ["Écriture", "Mésopotamie"], "mi": {"type": "src", "q": "Pourquoi ce scribe écrit-il ?", "opts": ["Pour enregistrer des biens et gérer les richesses du temple et du palais", "Pour écrire un poème d’amour", "Pour raconter sa vie", "Pour apprendre à lire à ses voisins"], "a": 0, "x": "Les premières tablettes sont des documents de gestion. L’écriture naît pour administrer des États qui s’agrandissent."}, "e": "✍️", "ch": "Premiers États, premières écritures"}, {"id": "p3", "n": "6", "p": "ant", "y": -2560, "who": "Ânkhet, paysanne", "av": "Â", "lieu": "Gizeh, Égypte", "date": "vers 2560 av. J.-C.", "m": "Mon mari part au chantier du pharaon", "t": "La crue du Nil recouvre nos champs, alors mon mari part travailler au grand chantier du pharaon. On dit que des milliers d’esclaves y sont fouettés jour et nuit.", "tags": ["Égypte", "Pyramides"], "mi": {"type": "vf", "q": "Vrai ou faux : les pyramides ont été construites par des esclaves fouettés.", "rep": false, "x": "Faux, d’après les fouilles menées près des pyramides : les ouvriers étaient organisés en équipes, logés et nourris, souvent des paysans mobilisés pendant la crue. Le travail restait très dur."}, "e": "🔺", "ch": "Premiers États, premières écritures"}, {"id": "p4", "n": "6", "p": "ant", "y": -440, "who": "Démarète, fille de citoyen", "av": "D", "lieu": "Athènes", "date": "vers 440 av. J.-C.", "m": "Ils votent, je reste à la maison", "t": "Mon père et mon frère sont partis à l’Ecclésia voter la guerre ou la paix. Moi, je reste à la maison avec ma mère : les femmes ne sont pas citoyennes. Notre esclave non plus, évidemment.", "tags": ["Athènes", "Démocratie"], "mi": {"type": "src", "q": "Que nous apprend ce témoignage sur la démocratie athénienne ?", "opts": ["Elle est réservée à une minorité : les hommes citoyens", "Tous les habitants votent", "Seuls les riches votent", "Les femmes votent une fois par an"], "a": 0, "x": "Femmes, esclaves et étrangers sont exclus : environ un habitant d’Athènes sur dix est citoyen."}, "e": "🗣️", "ch": "Le monde des cités grecques"}, {"id": "p5", "n": "6", "p": "ant", "y": -436, "who": "Kallias, coureur", "av": "K", "lieu": "Olympie", "date": "vers 436 av. J.-C.", "m": "J’ai gagné le stade !", "t": "J’ai gagné la course du stade devant toute la Grèce ! Les juges m’ont remis ma récompense : [[une médaille d’or]]. Ma cité va me couvrir d’honneurs.", "tags": ["Jeux", "Olympie"], "mi": {"type": "ana", "x": "Les vainqueurs des Jeux d’Olympie recevaient une couronne d’olivier. Les médailles d’or n’apparaissent qu’avec les Jeux modernes, à la fin du XIXe siècle."}, "e": "🏃", "ch": "Le monde des cités grecques"}, {"id": "p6", "n": "6", "p": "ant", "y": -52, "who": "Aulus, légionnaire", "av": "A", "lieu": "Alésia, Gaule", "date": "52 av. J.-C.", "m": "Deux lignes de fortifications", "t": "Nous avons creusé deux lignes de fossés et de palissades autour de l’oppidum. Vercingétorix est pris au piège. Ce soir, ration de pain et de [[pommes de terre]] pour toute la légion.", "tags": ["Rome", "Gaule"], "mi": {"type": "ana", "x": "La pomme de terre vient d’Amérique : elle n’arrive en Europe qu’après 1492. Le légionnaire mange surtout du blé, sous forme de pain ou de bouillie."}, "e": "🛡️", "ch": "Conquêtes, paix romaine et romanisation"}, {"id": "p7", "n": "6", "p": "ant", "y": 79, "who": "Julia, marchande", "av": "J", "lieu": "Pompéi", "date": "79", "m": "La montagne gronde", "t": "La montagne gronde depuis le matin, une fumée noire cache le soleil et des cendres tombent sur ma boutique. Je ferme et je pars vers le port.", "tags": ["Pompéi", "Vésuve"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["79", "476", "52 av. J.-C.", "313"], "a": 0, "x": "L’éruption du Vésuve ensevelit Pompéi en 79. Les fouilles ont révélé une ville romaine presque intacte."}, "e": "🌋", "ch": "Conquêtes, paix romaine et romanisation"}, {"id": "p8", "n": "6", "p": "ant", "y": 64, "who": "Marcus, boulanger", "av": "M", "lieu": "Rome", "date": "64", "m": "Rome brûle", "t": "Rome brûle depuis des jours, mon quartier est en cendres. On raconte que l’empereur Néron chantait en jouant de la lyre en regardant les flammes !", "tags": ["Rome", "Rumeur"], "mi": {"type": "vf", "q": "Fait établi ou rumeur ?", "rep": false, "lab": ["Fait établi", "Rumeur"], "x": "C’est une rumeur. L’historien romain Tacite la rapporte, mais Néron était à Antium au début de l’incendie et il organisa des secours. Pour se disculper, il accusa les chrétiens."}, "e": "🔥", "ch": "Des chrétiens dans l’Empire"}, {"id": "p9", "n": "5", "p": "moy", "y": 830, "who": "Yahya, traducteur", "av": "Y", "lieu": "Bagdad", "date": "vers 830", "m": "À la Maison de la sagesse", "t": "À la Maison de la sagesse, je traduis du grec en arabe un traité d’Aristote. Mes collègues travaillent sur des livres de médecine et d’astronomie venus de Grèce et d’Inde.", "tags": ["Bagdad", "Savoirs"], "mi": {"type": "vf", "q": "Vrai ou faux : au IXe siècle, des savants de Bagdad traduisaient des œuvres grecques.", "rep": true, "x": "Vrai. Sous les califes abbassides, Bagdad devient un grand centre de savoir. Ces traductions passeront plus tard en Occident."}, "e": "📖", "ch": "De la naissance de l’islam à la prise de Bagdad"}, {"id": "p10", "n": "5", "p": "moy", "y": 800, "who": "Berthe, pèlerine", "av": "B", "lieu": "Rome, basilique Saint-Pierre", "date": "25 décembre 800", "m": "Un empereur à Noël", "t": "Dans la basilique, le pape vient de poser une couronne sur la tête du roi des Francs. La foule l’acclame comme empereur des Romains !", "tags": ["Carolingiens"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["800", "987", "476", "1095"], "a": 0, "x": "Charlemagne est couronné empereur par le pape le jour de Noël 800."}, "e": "👑", "ch": "Byzance et l’Europe carolingienne"}, {"id": "p11", "n": "5", "p": "moy", "y": 1100, "who": "Frère Odon, copiste", "av": "O", "lieu": "Abbaye de Cluny", "date": "vers 1100", "m": "Trois mois pour un manuscrit", "t": "J’ai passé trois mois à recopier et enluminer ce livre de prières à la plume d’oie. Heureusement, depuis qu’on l’a [[imprimé à deux cents exemplaires]], tous les frères peuvent le lire.", "tags": ["Moyen Âge", "Livres"], "mi": {"type": "ana", "x": "L’imprimerie à caractères mobiles n’apparaît en Europe que vers 1450, avec Gutenberg. Avant, chaque livre est copié à la main : il est rare et précieux."}, "e": "✒️", "ch": "Société, Église et pouvoir dans l’Occident féodal"}, {"id": "p12", "n": "5", "p": "moy", "y": 1150, "who": "Guillaume, paysan", "av": "G", "lieu": "Champagne", "date": "vers 1150", "m": "Corvée, moulin et colère", "t": "Trois jours de corvée sur les terres du seigneur, puis il a fallu payer pour moudre mon grain à son moulin. Heureusement, [[le syndicat des paysans]] va porter plainte.", "tags": ["Seigneurie"], "mi": {"type": "ana", "x": "Les syndicats n’existent pas au Moyen Âge : ils sont autorisés en France en 1884. Le paysan médiéval doit se soumettre au seigneur, qui rend lui-même la justice."}, "e": "🌾", "ch": "L’ordre seigneurial"}, {"id": "p13", "n": "5", "p": "moy", "y": 1099, "who": "Pierre, croisé", "av": "P", "lieu": "Jérusalem", "date": "1099", "m": "Nous avons pris la ville sainte", "t": "Après des semaines de siège, nous avons pris Jérusalem ! Dieu le voulait. Nos ennemis infidèles ont été justement punis.", "tags": ["Croisades"], "mi": {"type": "src", "q": "Que faut-il garder en tête pour analyser ce message ?", "opts": ["Son auteur est un combattant d’un des deux camps : il donne son point de vue", "C’est un récit neutre et objectif", "Il a été écrit par un historien moderne", "Il exprime l’avis des habitants de Jérusalem"], "a": 0, "x": "Il faut toujours se demander qui parle. Les chroniqueurs musulmans racontent la prise de Jérusalem et ses massacres de façon très différente."}, "e": "⚔️", "ch": "La Méditerranée, espace d’échanges et de conflits"}, {"id": "p14", "n": "5", "p": "moy", "y": 1348, "who": "Isabeau, lavandière", "av": "I", "lieu": "Marseille", "date": "1348", "m": "La peste est arrivée", "t": "La peste est arrivée par les bateaux. Les morts s’entassent. Dans la rue, on dit que ce sont les Juifs qui ont empoisonné les puits.", "tags": ["Peste noire"], "mi": {"type": "vf", "q": "Vrai ou faux : les Juifs ont provoqué la peste en empoisonnant les puits.", "rep": false, "x": "Faux. La peste est due à une bactérie transmise par les puces des rats et entre humains. Cette fausse accusation a pourtant entraîné le massacre de communautés juives, comme à Strasbourg en 1349."}, "e": "🐀", "ch": "Société, Église et pouvoir dans l’Occident féodal"}, {"id": "p15", "n": "5", "p": "moy", "y": 1453, "who": "Andronikos, marchand", "av": "A", "lieu": "Constantinople", "date": "1453", "m": "Les murailles tombent", "t": "Les énormes canons du sultan Mehmed ont ouvert une brèche dans nos murailles. La ville est perdue, l’Empire aussi.", "tags": ["Byzance", "Ottomans"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["1453", "1204", "1054", "1492"], "a": 0, "x": "Constantinople est prise par les Ottomans en 1453 : c’est la fin de l’Empire byzantin."}, "e": "💥", "ch": "Byzance et l’Europe carolingienne"}, {"id": "p16", "n": "5", "p": "mod", "y": 1520, "who": "Ursula, imprimeuse", "av": "U", "lieu": "Wittenberg", "date": "1520", "m": "Des milliers d’exemplaires", "t": "Nous imprimons les textes de Luther par milliers. À peine sortis des presses, ils partent dans toute l’Allemagne.", "tags": ["Réforme", "Imprimerie"], "mi": {"type": "src", "q": "Quel rôle joue l’imprimerie dans la Réforme ?", "opts": ["Elle diffuse très vite les idées de Luther", "Elle interdit les livres protestants", "Elle ne sert qu’à imprimer la Bible en latin", "Aucun, la Réforme se diffuse seulement à l’oral"], "a": 0, "x": "Grâce à l’imprimerie, les idées de la Réforme se répandent en quelques mois dans toute l’Europe."}, "e": "🖨️", "ch": "Humanisme, réformes et conflits religieux"}, {"id": "p17", "n": "5", "p": "mod", "y": 1682, "who": "Louise, servante", "av": "L", "lieu": "Versailles", "date": "1682", "m": "La Cour s’installe", "t": "Le roi s’installe ici avec toute la Cour. Ce soir, grand bal sous [[l’éclairage électrique]] de la galerie des Glaces !", "tags": ["Louis XIV"], "mi": {"type": "ana", "x": "L’électricité n’éclaire les maisons qu’à la fin du XIXe siècle. À Versailles, on s’éclaire avec des milliers de bougies."}, "e": "💃", "ch": "Du Prince de la Renaissance au roi absolu"}, {"id": "p18", "n": "4", "p": "cont", "y": 1789, "who": "Jacques, menuisier", "av": "J", "lieu": "Paris", "date": "14 juillet 1789", "m": "On a pris la Bastille", "t": "On a pris la Bastille ! Le peuple de Paris a fait tomber la forteresse du roi et libéré les prisonniers.", "tags": ["Révolution"], "mi": {"type": "vf", "q": "Vrai ou faux : la Bastille était remplie de centaines de prisonniers politiques.", "rep": false, "x": "Faux : il n’y avait que sept prisonniers. Mais la Bastille symbolisait l’arbitraire royal, et les émeutiers y cherchaient surtout de la poudre."}, "e": "🏰", "ch": "La Révolution française et l’Empire"}, {"id": "p19", "n": "4", "p": "cont", "y": 1789, "who": "Le journal de l’Assemblée", "av": "A", "lieu": "Versailles", "date": "26 août 1789", "m": "Article premier", "t": "Texte adopté aujourd’hui par les députés : « Les hommes naissent et demeurent libres et égaux en droits. Les distinctions sociales ne peuvent être fondées que sur l’utilité commune. »", "tags": ["DDHC"], "mi": {"type": "src", "q": "Quelle est la nature de ce document ?", "opts": ["Un texte juridique fondateur, voté par des députés", "Un témoignage personnel", "Un roman", "Une affiche de propagande"], "a": 0, "x": "C’est l’article 1 de la Déclaration des droits de l’homme et du citoyen, texte authentique."}, "e": "⚖️", "ch": "La Révolution française et l’Empire"}, {"id": "p20", "n": "4", "p": "cont", "y": 1791, "who": "Une citoyenne de Paris", "av": "C", "lieu": "Paris", "date": "1791", "m": "Et les droits des femmes ?", "t": "Je viens de lire la Déclaration des droits de la femme et de la citoyenne d’Olympe de Gouges. Enfin quelqu’un réclame pour nous les mêmes droits que les hommes !", "tags": ["Révolution", "Femmes"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["1791", "1848", "1944", "1905"], "a": 0, "x": "Olympe de Gouges publie sa Déclaration en 1791. Les Françaises n’obtiendront le droit de vote qu’en 1944."}, "e": "🖋️", "ch": "La Révolution française et l’Empire"}, {"id": "p21", "n": "4", "p": "cont", "y": 1791, "who": "Un planteur du Cap", "av": "P", "lieu": "Saint-Domingue", "date": "août 1791", "m": "Révolte dans la plaine du Nord", "t": "Des brigands ont incendié nos plantations. Nos esclaves, que nous traitions bien, se sont révoltés sans raison.", "tags": ["Esclavage", "Saint-Domingue"], "mi": {"type": "src", "q": "Pourquoi faut-il se méfier du point de vue de ce témoin ?", "opts": ["C’est un propriétaire d’esclaves : il défend ses intérêts et nie la violence de l’esclavage", "C’est un historien neutre", "Il était lui-même esclave", "Il vivait en France et n’a rien vu"], "a": 0, "x": "Les insurgés, menés notamment par Toussaint Louverture, luttent pour leur liberté. Leur révolte aboutit à l’indépendance d’Haïti en 1804."}, "e": "⛓️", "ch": "Bourgeoisies marchandes, négoces et traites négrières"}, {"id": "p22", "n": "4", "p": "cont", "y": 1804, "who": "Hortense, couturière", "av": "H", "lieu": "Paris, Notre-Dame", "date": "2 décembre 1804", "m": "Il s’est couronné lui-même", "t": "Dans Notre-Dame, devant le pape, Bonaparte s’est posé lui-même la couronne sur la tête. La République a maintenant un empereur…", "tags": ["Empire"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["1804", "1789", "1815", "1852"], "a": 0, "x": "Napoléon Ier est sacré empereur le 2 décembre 1804."}, "e": "🦅", "ch": "La Révolution française et l’Empire"}, {"id": "p23", "n": "4", "p": "cont", "y": 1848, "who": "Baptiste, ouvrier typographe", "av": "B", "lieu": "Lyon", "date": "1848", "m": "Je vote pour la première fois", "t": "Pour la première fois, je vais voter, comme tous les hommes de plus de 21 ans. Et ma femme aussi : [[les citoyennes votent avec nous]] !", "tags": ["Suffrage"], "mi": {"type": "ana", "x": "En 1848, le suffrage universel est seulement masculin. Les femmes n’obtiennent le droit de vote qu’en 1944."}, "e": "🗳️", "ch": "La conquête du suffrage universel"}, {"id": "p24", "n": "4", "p": "cont", "y": 1850, "who": "Jeanne, fileuse", "av": "J", "lieu": "Lille", "date": "vers 1850", "m": "Quatorze heures à la filature", "t": "Je travaille quatorze heures par jour à la filature, et mon fils de neuf ans aussi. Vivement [[les congés payés du mois d’août]].", "tags": ["Industrie"], "mi": {"type": "ana", "x": "Les congés payés sont obtenus en 1936, avec le Front populaire. Au milieu du XIXe siècle, les ouvriers n’ont aucune protection sociale."}, "e": "🏭", "ch": "L’industrialisation"}, {"id": "p25", "n": "4", "p": "cont", "y": 1882, "who": "Rose, institutrice", "av": "R", "lieu": "Un village du Gers", "date": "1882", "m": "Rentrée dans ma nouvelle école", "t": "Rentrée dans l’école toute neuve de la commune. La loi oblige désormais les familles à envoyer leurs enfants à l’école.", "tags": ["École", "République"], "mi": {"type": "vf", "q": "Vrai ou faux : avec les lois Ferry, l’école devient obligatoire pour les garçons seulement.", "rep": false, "x": "Faux : l’instruction devient obligatoire pour les filles et les garçons de 6 à 13 ans, et l’école publique est gratuite et laïque."}, "e": "🏫", "ch": "La IIIe République"}, {"id": "p26", "n": "4", "p": "cont", "y": 1895, "who": "Un journal parisien", "av": "J", "lieu": "Paris", "date": "vers 1895", "m": "La « mission civilisatrice »", "t": "Nos soldats et nos missionnaires apportent la civilisation aux peuples d’Afrique, qui nous accueillent avec reconnaissance.", "tags": ["Colonisation"], "mi": {"type": "src", "q": "Comment analyser ce texte ?", "opts": ["C’est de la propagande : il justifie la colonisation et cache sa violence", "C’est une description objective", "C’est un témoignage de colonisés", "C’est un texte qui critique la colonisation"], "a": 0, "x": "Ce discours présente les colonisés comme inférieurs. La conquête s’accompagne de guerres, de travail forcé et d’inégalités."}, "e": "📰", "ch": "Conquêtes et sociétés coloniales"}, {"id": "p27", "n": "3", "p": "cont", "y": 1916, "who": "Louis, soldat", "av": "L", "lieu": "Verdun", "date": "1916", "m": "Ne dis rien à maman", "t": "Mon cher frère, la boue monte jusqu’aux genoux, les rats nous mangent le pain et trois copains sont tombés hier sous les obus. Ne dis rien à maman.", "tags": ["Grande Guerre"], "mi": {"type": "src", "q": "Pourquoi ce type de lettre est-il une source précieuse ?", "opts": ["Il montre la réalité vécue au front, que la presse censurée cachait", "Il exprime la position officielle de l’armée", "Il a été écrit pour être publié", "Il exagère tout pour faire peur"], "a": 0, "x": "Les lettres et carnets de soldats sont des témoignages directs. Il faut quand même savoir que le courrier pouvait être contrôlé."}, "e": "✉️", "ch": "Civils et militaires dans la Première Guerre mondiale"}, {"id": "p28", "n": "3", "p": "cont", "y": 1929, "who": "Harry, employé de banque", "av": "H", "lieu": "New York", "date": "octobre 1929", "m": "La Bourse s’effondre", "t": "La Bourse s’effondre, des milliers de gens perdent toutes leurs économies en quelques jours. La panique gagne toute la ville.", "tags": ["Crise"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["1929", "1914", "1945", "1989"], "a": 0, "x": "Le krach de Wall Street, en octobre 1929, déclenche une crise économique mondiale."}, "e": "📉", "ch": "Démocraties fragilisées et totalitarismes"}, {"id": "p29", "n": "3", "p": "cont", "y": 1933, "who": "Greta, étudiante", "av": "G", "lieu": "Berlin", "date": "mai 1933", "m": "Ils brûlent des livres", "t": "Ce soir, sur une place de Berlin, des étudiants en uniforme brûlent des livres d’auteurs juifs et d’opposants. La foule applaudit.", "tags": ["Nazisme"], "mi": {"type": "src", "q": "Que montre cet événement du régime nazi ?", "opts": ["Il contrôle la pensée et la culture : c’est un trait du totalitarisme", "Il protège la liberté d’expression", "Il organise une fête populaire sans signification", "Il veut moderniser les bibliothèques"], "a": 0, "x": "Les autodafés de mai 1933 montrent la volonté nazie d’éliminer toute pensée jugée contraire au régime."}, "e": "⛔", "ch": "Démocraties fragilisées et totalitarismes"}, {"id": "p30", "n": "3", "p": "cont", "y": 1940, "who": "Marcel, cheminot", "av": "M", "lieu": "Bordeaux", "date": "juin 1940", "m": "Un général parle à Londres", "t": "La guerre est perdue, Pétain demande l’armistice. Un collègue dit qu’un général a parlé hier soir à la radio de Londres, mais presque personne ici ne l’a entendu.", "tags": ["Résistance"], "mi": {"type": "vf", "q": "Vrai ou faux : en juin 1940, la plupart des Français ont entendu l’appel du général de Gaulle.", "rep": false, "x": "Faux : très peu l’ont entendu en direct. L’appel du 18 juin est surtout devenu célèbre après coup, comme acte fondateur de la France libre."}, "e": "📻", "ch": "La France défaite et occupée"}, {"id": "p31", "n": "3", "p": "cont", "y": 1944, "who": "Simone, résistante", "av": "S", "lieu": "Paris", "date": "25 août 1944", "m": "Paris est libéré", "t": "Paris est libéré ! La 2e DB et les FFI sont dans les rues, tout le monde danse. Chez la voisine, on regarde le défilé en direct à [[la télévision]].", "tags": ["Libération"], "mi": {"type": "ana", "x": "En 1944, la télévision n’existe que de façon expérimentale, avec quelques centaines de postes. Les Français suivent les nouvelles à la radio."}, "e": "🎉", "ch": "La France défaite et occupée"}, {"id": "p32", "n": "3", "p": "cont", "y": 1962, "who": "Tom, pêcheur", "av": "T", "lieu": "Key West, Floride", "date": "octobre 1962", "m": "Tout le monde regarde vers Cuba", "t": "Les navires de guerre passent au large. À la radio, on parle de missiles soviétiques à Cuba. Tout le monde a peur d’une guerre nucléaire.", "tags": ["Guerre froide"], "mi": {"type": "vf", "q": "Vrai ou faux : pendant la crise de Cuba, Américains et Soviétiques se sont combattus directement.", "rep": false, "x": "Faux : les deux Grands négocient et l’URSS retire ses missiles. C’est le principe de la guerre froide : pas d’affrontement direct entre eux."}, "e": "🚀", "ch": "Un monde bipolaire"}, {"id": "p33", "n": "3", "p": "cont", "y": 1968, "who": "Nadia, étudiante", "av": "N", "lieu": "Paris, Quartier latin", "date": "mai 1968", "m": "Barricades rue Gay-Lussac", "t": "Barricades rue Gay-Lussac cette nuit. On organise les manifestations du lendemain sur [[les réseaux sociaux]].", "tags": ["Mai 68"], "mi": {"type": "ana", "x": "Internet et les réseaux sociaux n’existent pas en 1968. Les étudiants s’organisent par tracts, affiches, assemblées et téléphone."}, "e": "✊", "ch": "Femmes et hommes dans la société des années 1950 à 1980"}, {"id": "p34", "n": "3", "p": "cont", "y": 1989, "who": "Anja, infirmière", "av": "A", "lieu": "Berlin-Est", "date": "9 novembre 1989", "m": "Le mur est ouvert", "t": "Les gardes ont ouvert les passages, on franchit le mur sans papiers ! Des inconnus s’embrassent, certains tapent dans le béton au marteau.", "tags": ["Guerre froide"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["1989", "1961", "1945", "1991"], "a": 0, "x": "Le mur de Berlin tombe le 9 novembre 1989. L’Allemagne est réunifiée en 1990."}, "e": "🧱", "ch": "Un monde bipolaire"}, {"id": "p35", "n": "6", "p": "ant", "y": -30, "e": "🐺", "ch": "Rome, du mythe à l’histoire", "who": "Tullia, Romaine", "av": "T", "lieu": "Rome", "date": "vers 30 av. J.-C.", "m": "La louve et les jumeaux", "t": "Ce soir, grand-père nous a encore raconté l’histoire de Romulus et Remus, abandonnés sur le Tibre puis allaités par une louve. C’est ainsi que notre ville est née !", "tags": ["Rome", "Origines"], "mi": {"type": "vf", "q": "Romulus et Remus ont-ils vraiment été allaités par une louve ?", "rep": false, "lab": ["Fait établi", "Légende"], "x": "C’est une légende, mise par écrit des siècles plus tard par des auteurs comme Tite-Live. L’archéologie montre seulement que des villages occupaient le site de Rome au VIIIe siècle av. J.-C."}}, {"id": "p36", "n": "6", "p": "ant", "y": -580, "e": "📜", "ch": "La naissance du monothéisme juif", "who": "Elishéva, déportée", "av": "E", "lieu": "Babylone", "date": "vers 580 av. J.-C.", "m": "Loin de Jérusalem", "t": "Loin de Jérusalem détruite, nous recopions les récits de nos ancêtres et nous prions notre Dieu unique. Autour de nous, les Babyloniens vénèrent des dizaines de dieux.", "tags": ["Hébreux", "Exil"], "mi": {"type": "src", "q": "Qu’est-ce qui distingue la croyance des Hébreux de celle de leurs voisins ?", "opts": ["Ils croient en un dieu unique : c’est le monothéisme", "Ils ne croient en aucun dieu", "Ils adorent l’empereur romain", "Ils vénèrent les mêmes dieux que les Babyloniens"], "a": 0, "x": "Après la destruction de Jérusalem en 587 av. J.-C., une partie des Hébreux est déportée à Babylone. C’est une période importante pour la mise par écrit de la Bible hébraïque."}}, {"id": "p37", "n": "6", "p": "ant", "y": 100, "e": "🐫", "ch": "Rome et la Chine des Han", "who": "Wang, marchand de soie", "av": "W", "lieu": "Sur la route de la soie", "date": "vers 100", "m": "De la soie vers l’Ouest", "t": "Mes chameaux portent des rouleaux de soie vers l’Ouest. D’autres marchands la revendront jusqu’à Rome. À l’étape, on se réchauffe avec un bol de [[café]].", "tags": ["Chine", "Han"], "mi": {"type": "ana", "x": "Le café ne se répand qu’à partir du XVe siècle, au Yémen puis dans le monde musulman. À l’époque des Han, la soie chinoise atteint bien Rome, par l’intermédiaire de nombreux marchands."}}, {"id": "p38", "n": "6", "p": "ant", "y": 313, "e": "🙏", "ch": "Des chrétiens dans l’Empire", "who": "Lucius, chrétien", "av": "L", "lieu": "Milan", "date": "313", "m": "Prier sans se cacher", "t": "Les empereurs autorisent enfin notre culte ! Après les persécutions, nous pouvons prier sans nous cacher.", "tags": ["Christianisme"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["313", "64", "380", "476"], "a": 0, "x": "L’édit de Milan, en 313, accorde la liberté de culte aux chrétiens. Le christianisme deviendra religion officielle en 380."}}, {"id": "p39", "n": "5", "p": "moy", "y": 622, "e": "🌙", "ch": "De la naissance de l’islam à la prise de Bagdad", "who": "Zayd, habitant de Médine", "av": "Z", "lieu": "Médine", "date": "622", "m": "Des voyageurs venus de La Mecque", "t": "Le prophète Muhammad et ses compagnons sont arrivés de La Mecque, chassés par les chefs de la ville. Ici, nous les accueillons.", "tags": ["Islam"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["622", "632", "800", "1095"], "a": 0, "x": "Cet exil, l’Hégire, a lieu en 622. Il marque l’an 1 du calendrier musulman."}}, {"id": "p40", "n": "5", "p": "moy", "y": 1180, "e": "⛪", "ch": "L’émergence de la ville", "who": "Thibaut, tailleur de pierre", "av": "T", "lieu": "Paris", "date": "vers 1180", "m": "Le chantier de la cathédrale", "t": "Chaque jour, je taille des blocs pour la nouvelle cathédrale. La ville grandit, les marchands et les artisans s’enrichissent et donnent pour le chantier.", "tags": ["Ville", "Gothique"], "mi": {"type": "vf", "q": "Vrai ou faux : une cathédrale gothique est construite en quelques années.", "rep": false, "x": "Faux : ces chantiers durent plusieurs décennies, souvent plus d’un siècle. Notre-Dame de Paris, commencée en 1163, n’est achevée qu’au XIVe siècle."}}, {"id": "p41", "n": "5", "p": "moy", "y": 1214, "e": "🐎", "ch": "L’affirmation de l’État monarchique", "who": "Gautier, chevalier", "av": "G", "lieu": "Bouvines", "date": "1214", "m": "Victoire du roi", "t": "Notre roi Philippe a battu l’empereur et ses alliés ! Le royaume sort de cette bataille plus fort que jamais.", "tags": ["Capétiens"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["1214", "987", "1453", "1515"], "a": 0, "x": "La victoire de Philippe Auguste à Bouvines, en 1214, renforce le prestige et le pouvoir du roi de France."}}, {"id": "p42", "n": "5", "p": "mod", "y": 1521, "e": "🗺️", "ch": "Le monde au temps de Charles Quint et Soliman", "who": "Un scribe aztèque", "av": "A", "lieu": "Tenochtitlan", "date": "1521", "m": "Les étrangers venus de la mer", "t": "Les étrangers venus de la mer ont pris notre ville. Mais le pire, ce sont les maladies qu’ils ont apportées : la variole tue plus que leurs armes.", "tags": ["Amériques", "Conquête"], "mi": {"type": "src", "q": "Pourquoi ce témoignage est-il important ?", "opts": ["Il donne le point de vue des vaincus sur la conquête", "Il a été écrit par un conquistador espagnol", "Il raconte la victoire des Aztèques", "Il exprime la position du roi d’Espagne"], "a": 0, "x": "La plupart des récits de la conquête ont été écrits par les vainqueurs. Des textes rédigés avec des Aztèques après 1521 permettent d’entendre aussi les vaincus."}}, {"id": "p43", "n": "4", "p": "mod", "y": 1759, "e": "📚", "ch": "L’Europe des Lumières", "who": "Sophie, lectrice", "av": "S", "lieu": "Paris", "date": "1759", "m": "Un livre interdit", "t": "Le roi vient d’interdire l’Encyclopédie ! Heureusement, des volumes circulent en cachette dans les salons et les cafés.", "tags": ["Lumières"], "mi": {"type": "src", "q": "Pourquoi l’Encyclopédie dérange-t-elle le pouvoir ?", "opts": ["Elle critique l’absolutisme et l’intolérance religieuse", "Elle contient des erreurs de calcul", "Elle est écrite en latin", "Elle fait l’éloge de la monarchie absolue"], "a": 0, "x": "Dirigée par Diderot et d’Alembert, l’Encyclopédie diffuse l’esprit des Lumières : raison, tolérance, critique de l’absolutisme. Elle est censurée mais continue de paraître."}}, {"id": "p44", "n": "4", "p": "cont", "y": 1890, "e": "🧵", "ch": "Conditions féminines dans une société en mutation", "who": "Marie, couturière", "av": "M", "lieu": "Paris", "date": "1890", "m": "C’est mon mari qui touche ma paie", "t": "Je couds dix heures par jour à l’atelier, mais c’est mon mari qui touche ma paie et décide de tout.", "tags": ["Femmes"], "mi": {"type": "vf", "q": "Vrai ou faux : en 1890, une femme mariée peut disposer librement de son salaire.", "rep": false, "x": "Faux : il faut attendre une loi de 1907. Le Code civil de 1804 place l’épouse sous l’autorité de son mari."}}, {"id": "p45", "n": "3", "p": "cont", "y": 1945, "e": "🕯️", "ch": "La Deuxième Guerre mondiale, une guerre d’anéantissement", "who": "Piotr, soldat de l’Armée rouge", "av": "P", "lieu": "Auschwitz", "date": "27 janvier 1945", "m": "Nous sommes entrés dans le camp", "grave": true, "t": "Nous sommes entrés dans le camp. Des survivants épuisés, des baraquements, des montagnes de chaussures et de vêtements. Les SS ont essayé de tout effacer avant de fuir.", "tags": ["Mémoire", "Shoah"], "mi": {"type": "src", "q": "Pourquoi les témoignages des libérateurs et des survivants sont-ils essentiels ?", "opts": ["Ils prouvent et racontent un génocide que les nazis voulaient cacher", "Ils sont plus importants que les archives", "Ils exagèrent les faits", "Ils ont été écrits pour la propagande soviétique uniquement"], "a": 0, "x": "Auschwitz-Birkenau est le plus grand centre de mise à mort nazi : environ 1,1 million de personnes y sont assassinées, en très grande majorité des Juifs. Le 27 janvier est aujourd’hui la journée internationale de la mémoire de l’Holocauste."}}, {"id": "p46", "n": "3", "p": "cont", "y": 1945, "e": "🌷", "ch": "1944-1947, refonder la République", "who": "Paulette, ouvrière", "av": "P", "lieu": "Lyon", "date": "avril 1945", "m": "J’ai voté !", "t": "Aujourd’hui, j’ai voté pour la première fois de ma vie, aux élections municipales ! Ensuite, je suis passée à la pharmacie acheter [[la pilule contraceptive]].", "tags": ["Femmes", "Vote"], "mi": {"type": "ana", "x": "La contraception n’est autorisée en France qu’en 1967, avec la loi Neuwirth. Le vote des femmes, lui, est bien une réalité en 1945 : il date de l’ordonnance d’avril 1944."}}, {"id": "p47", "n": "3", "p": "cont", "y": 1962, "e": "🕊️", "ch": "Indépendances et construction de nouveaux États", "who": "Ahmed, instituteur", "av": "A", "lieu": "Alger", "date": "juillet 1962", "m": "Huit ans de guerre, et la fête", "t": "Après huit ans de guerre, l’Algérie est indépendante. Dans les rues, on chante et on agite des drapeaux vert et blanc.", "tags": ["Décolonisation"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["1962", "1947", "1954", "1958"], "a": 0, "x": "La guerre d’Algérie commence en 1954. Après les accords d’Évian, l’Algérie devient indépendante en juillet 1962."}}, {"id": "p48", "n": "3", "p": "cont", "y": 1957, "e": "🤝", "ch": "Affirmation et mise en œuvre du projet européen", "who": "Giulia, journaliste", "av": "G", "lieu": "Rome", "date": "25 mars 1957", "m": "Six pays signent", "t": "Six pays viennent de signer les traités de Rome au Capitole. On parle d’un grand marché commun européen.", "tags": ["Europe"], "mi": {"type": "vf", "q": "Vrai ou faux : les traités de Rome créent la monnaie unique européenne.", "rep": false, "x": "Faux : ils créent la Communauté économique européenne (CEE), un marché commun. Les pièces et billets en euros n’arrivent qu’en 2002."}}, {"id": "p49", "n": "3", "p": "cont", "y": 2001, "e": "🏙️", "ch": "Enjeux et conflits dans le monde après 1989", "who": "Maya, étudiante", "av": "M", "lieu": "New York", "date": "11 septembre 2001", "m": "La ville sous le choc", "t": "Deux avions viennent de percuter les tours du World Trade Center. Toute la ville est sous le choc.", "tags": ["Terrorisme"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["2001", "1991", "1989", "2008"], "a": 0, "x": "Les attentats du 11 septembre 2001, organisés par Al-Qaïda, font près de 3 000 morts. Les États-Unis entrent ensuite en guerre en Afghanistan."}}, {"id": "p50", "n": "3", "p": "cont", "y": 1965, "e": "📣", "ch": "La Ve République", "who": "Jean, électeur", "av": "J", "lieu": "Paris", "date": "décembre 1965", "m": "Je vais élire le président", "t": "Pour la première fois sous la Ve République, nous allons élire nous-mêmes le président au suffrage universel direct !", "tags": ["Ve République"], "hide": true, "mi": {"type": "dat", "q": "En quelle année ce message a-t-il été publié ?", "opts": ["1965", "1958", "1946", "1981"], "a": 0, "x": "Après le référendum de 1962, la première élection présidentielle au suffrage universel direct de la Ve République a lieu en 1965 : de Gaulle est réélu face à François Mitterrand."}}, {"id": "p51", "n": "3", "p": "cont", "y": 1975, "e": "🏥", "ch": "Femmes et hommes dans la société des années 1950 à 1980", "who": "Claire, infirmière", "av": "C", "lieu": "Paris", "date": "1975", "m": "Une loi votée après des débats très durs", "t": "Les députés viennent d’adopter la loi défendue par la ministre de la Santé, Simone Veil, après des débats très durs.", "tags": ["Femmes", "Droits"], "mi": {"type": "src", "q": "Que permet cette loi ?", "opts": ["L’interruption volontaire de grossesse (IVG)", "Le droit de vote des femmes", "La contraception", "L’égalité des salaires"], "a": 0, "x": "La loi Veil de 1975 dépénalise l’IVG. La contraception, elle, est autorisée depuis 1967."}}]}</script>
+<script>
+(function(){
+'use strict';
+
+var POSTS = JSON.parse(document.getElementById('posts-data').textContent).posts;
+var PERIODS = [
+  {k:'pre', name:'Préhistoire', short:'Préhistoire', e:'🏹'},
+  {k:'ant', name:'Antiquité', short:'Antiquité', e:'🏛️'},
+  {k:'moy', name:'Moyen Âge', short:'Moyen Âge', e:'🏰'},
+  {k:'mod', name:'Temps modernes', short:'Temps modernes', e:'🧭'},
+  {k:'cont', name:'Époque contemporaine', short:'Contemporaine', e:'🚂'}
+];
+var LEVELS = ['6','5','4','3'];
+var TYPES = {
+  ana:{e:'⏳', tag:'Anachronisme', h:'Chasse à l’anachronisme', c:'Un élément de ce message ne peut pas exister à cette époque. Touche-le.'},
+  vf:{e:'❓', tag:'Vrai ou faux', h:'Vrai ou faux ?', c:'Vérifie l’information avant de la croire.'},
+  src:{e:'🔎', tag:'Critique de source', h:'Critique de la source', c:'Qui parle, quand, et dans quel but ?'},
+  dat:{e:'📅', tag:'Datation', h:'Date masquée', c:'Retrouve la date grâce aux indices du message.'}
+};
+var RANKS = [
+  {min:0, name:'Recrue du temps'},
+  {min:20, name:'Détective'},
+  {min:55, name:'As de l’enquête'},
+  {min:95, name:'Expert des sources'},
+  {min:130, name:'Légende du temps'}
+];
+var KEY = 'chronogramme:v1';
+var S = load();
+var view = 'fil';
+var open = {};      // missions ouvertes
+var tries = {};     // essais en cours (anachronismes)
+
+/* ---------- Utilitaires ---------- */
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function inArr(a, v){ return a.indexOf(v) >= 0; }
+function shuffle(a){ for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function load(){
+  var d = {solved:{}, liked:{}, prefs:{levels:LEVELS.slice(), period:'all', old:true, dys:false, theme:'light'}};
+  try {
+    var o = JSON.parse(localStorage.getItem(KEY));
+    if (o && typeof o === 'object'){
+      if (o.solved && typeof o.solved === 'object') d.solved = o.solved;
+      if (o.liked && typeof o.liked === 'object') d.liked = o.liked;
+      if (o.prefs && typeof o.prefs === 'object'){ for (var k in o.prefs){ if (o.prefs.hasOwnProperty(k)) d.prefs[k] = o.prefs[k]; } }
+    }
+  } catch (e) {}
+  return d;
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function byId(id){ for (var i = 0; i < POSTS.length; i++) if (POSTS[i].id === id) return POSTS[i]; return null; }
+function plain(t){ return t.replace(/\[\[|\]\]/g, ''); }
+function seedLikes(id){ var h = 0; for (var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) % 9973; return 80 + (h * 37) % 4200; }
+function fmtN(n){ return n >= 1000 ? (Math.round(n / 100) / 10).toString().replace('.', ',') + ' k' : String(n); }
+function points(){ var p = 0; for (var k in S.solved) if (S.solved.hasOwnProperty(k)) p += S.solved[k].pts || 0; return p; }
+function rankOf(p){ var r = RANKS[0], nx = null; for (var i = 0; i < RANKS.length; i++){ if (p >= RANKS[i].min) r = RANKS[i]; else { nx = RANKS[i]; break; } } return {r:r, next:nx}; }
+function periodName(k){ for (var i = 0; i < PERIODS.length; i++) if (PERIODS[i].k === k) return PERIODS[i].name; return ''; }
+function focusEl(el){ if (!el) return; try { el.focus({preventScroll:true}); } catch (e) { el.focus(); } }
+
+var IC = {
+  heart:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.2-9.3C1.6 7.8 3.8 4.5 7.2 4.5c2 0 3.6 1.1 4.8 2.8 1.2-1.7 2.8-2.8 4.8-2.8 3.4 0 5.6 3.3 4.4 6.7-1.7 4.7-9.2 9.3-9.2 9.3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+  loupe:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>',
+  check:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+};
+
+/* ---------- Fil ---------- */
+function visiblePosts(){
+  var P = S.prefs;
+  var list = POSTS.filter(function(p){
+    if (!inArr(P.levels, p.n)) return false;
+    if (P.period !== 'all' && p.p !== P.period) return false;
+    if (view === 'todo' && S.solved[p.id]) return false;
+    return true;
+  });
+  list.sort(function(a, b){ return P.old ? a.y - b.y : b.y - a.y; });
+  return list;
+}
+
+function renderStories(){
+  var P = S.prefs, h = '';
+  h += '<button type="button" class="story all" data-per="all" aria-pressed="' + (P.period === 'all') + '"><span class="ring"><span>Tout</span></span><b>Toutes les époques</b><small>' + nSolvedAll() + ' / ' + POSTS.length + '</small></button>';
+  for (var i = 0; i < PERIODS.length; i++){
+    var pr = PERIODS[i];
+    var tot = 0, done = 0;
+    for (var j = 0; j < POSTS.length; j++){ if (POSTS[j].p === pr.k){ tot++; if (S.solved[POSTS[j].id]) done++; } }
+    if (!tot) continue;
+    h += '<button type="button" class="story' + (done === tot ? ' done' : '') + '" data-per="' + pr.k + '" style="--pc:var(--p-' + pr.k + ');--pt:var(--t-' + pr.k + ')" aria-pressed="' + (P.period === pr.k) + '" aria-label="' + pr.name + ', ' + done + ' enquête' + (done > 1 ? 's' : '') + ' résolue' + (done > 1 ? 's' : '') + ' sur ' + tot + '"><span class="ring"><span aria-hidden="true">' + pr.e + '</span></span><b>' + pr.short + '</b><small>' + done + ' / ' + tot + '</small></button>';
+  }
+  $('stories').innerHTML = h;
+  var f = '';
+  for (var l = 0; l < LEVELS.length; l++) f += '<button type="button" class="chip" data-lv="' + LEVELS[l] + '" aria-pressed="' + inArr(P.levels, LEVELS[l]) + '">' + LEVELS[l] + 'e</button>';
+  f += '<button type="button" class="chip plain" id="order">' + (P.old ? 'Du plus ancien' : 'Du plus récent') + ' ⇅</button>';
+  $('filters').innerHTML = f;
+}
+
+function captionHTML(p){ return '<p class="cap"><b>' + esc(p.who) + '</b> ' + esc(plain(p.t)) + '</p><p class="tags">' + p.tags.map(function(t){ return '#' + esc(t.replace(/\s+/g, '')); }).join(' ') + '</p>'; }
+
+function postHTML(p){
+  var sol = S.solved[p.id], liked = !!S.liked[p.id], T = TYPES[p.mi.type];
+  var hidden = p.hide && !sol;
+  var h = '<article class="post' + (p.grave ? ' grave' : '') + '" id="post-' + p.id + '" style="--pc:var(--p-' + p.p + ');--pt:var(--t-' + p.p + ')">';
+  h += '<div class="ph"><span class="av" aria-hidden="true">' + esc(p.av) + '</span><div class="ph-t"><b>' + esc(p.who) + '</b><span>' + esc(p.lieu) + ', ' + (hidden ? '<span class="lock">date à trouver</span>' : esc(p.date).replace(/(\d) (\d)/g, '$1\u202F$2')) + '</span></div><span class="mtag">' + T.e + ' ' + T.tag + '</span></div>';
+  h += '<div class="media"><span class="em" aria-hidden="true">' + p.e + '</span><span class="ml">' + p.n + 'e, ' + esc(p.ch) + '</span><h2>' + esc(p.m) + '</h2>' + (sol ? stampHTML(sol, p) : '') + '</div>';
+  h += '<div class="acts">';
+  if (!p.grave) h += '<button type="button" class="ib like" data-like="' + p.id + '" aria-pressed="' + liked + '" aria-label="J’aime">' + IC.heart + '<span>' + fmtN(seedLikes(p.id) + (liked ? 1 : 0)) + '</span></button>';
+  else h += '<span class="ib" style="font-weight:700;color:var(--ink-soft)">Publication de mémoire</span>';
+  h += '<button type="button" class="enq' + (sol ? ' solved' : '') + '" data-enq="' + p.id + '" aria-expanded="' + !!open[p.id] + '">' + (sol ? IC.check + 'Enquête résolue' : IC.loupe + (open[p.id] ? 'Refermer' : 'Enquêter')) + '</button></div>';
+  h += captionHTML(p);
+  if (open[p.id]) h += missionHTML(p);
+  return h + '</article>';
+}
+function stampHTML(sol, p){ if (p && p.grave) return '<div class="stamp mem" aria-label="Lu">Lu et<br>compris</div>'; return '<div class="stamp" aria-label="Enquête résolue">Enquête résolue<br>+' + sol.pts + ' pt' + (sol.pts > 1 ? 's' : '') + '</div>'; }
+function nSolvedAll(){ var n = 0; for (var i = 0; i < POSTS.length; i++) if (S.solved[POSTS[i].id]) n++; return n; }
+
+function renderFeed(){
+  var list = visiblePosts(), h = '';
+  if (!list.length){
+    if (view === 'todo') h = '<div class="empty"><b>Plus rien à résoudre ici.</b>Change de période ou de niveau pour trouver d’autres enquêtes.</div>';
+    else h = '<div class="empty"><b>Aucune publication.</b>Active au moins un niveau.</div>';
+  }
+  for (var i = 0; i < list.length; i++) h += postHTML(list[i]);
+  $('feed').innerHTML = h;
+  updateTop();
+}
+function rerenderPost(id, focusSel){
+  var p = byId(id), el = $('post-' + id);
+  if (!p || !el) return;
+  var tmp = document.createElement('div');
+  tmp.innerHTML = postHTML(p);
+  el.parentNode.replaceChild(tmp.firstChild, el);
+  if (focusSel){ var f = $('post-' + id).querySelector(focusSel); focusEl(f); }
+  updateTop();
+}
+function updateTop(){
+  var p = points();
+  $('pts').textContent = p + ' pt' + (p > 1 ? 's' : '');
+  var n = 0; for (var i = 0; i < POSTS.length; i++) if (!S.solved[POSTS[i].id] && inArr(S.prefs.levels, POSTS[i].n)) n++;
+  $('todo-n').textContent = n;
+}
+
+/* ---------- Missions ---------- */
+function missionHTML(p){
+  var T = TYPES[p.mi.type], sol = S.solved[p.id], mi = p.mi, h = '<div class="mis" id="mis-' + p.id + '">';
+  h += '<p class="mis-h">' + T.h + '</p>';
+  if (mi.q) h += '<p class="mis-c"><b>' + esc(mi.q) + '</b></p>';
+  else h += '<p class="mis-c">' + T.c + '</p>';
+  if (mi.type === 'ana'){
+    h += '<div class="words">' + wordsHTML(p, sol) + '</div>';
+  } else if (mi.type === 'vf'){
+    var lab = mi.lab || ['Vrai', 'Faux'];
+    h += '<div class="opts two">';
+    h += '<button type="button" class="opt' + (sol ? (mi.rep === true ? ' ok' : (sol.pick === 'v' ? ' ko' : '')) : '') + '" data-vf="v"' + (sol ? ' disabled' : '') + '>' + lab[0] + '</button>';
+    h += '<button type="button" class="opt' + (sol ? (mi.rep === false ? ' ok' : (sol.pick === 'f' ? ' ko' : '')) : '') + '" data-vf="f"' + (sol ? ' disabled' : '') + '>' + lab[1] + '</button></div>';
+  } else {
+    var order = sol && sol.order ? sol.order : shuffle(mi.opts.map(function(_, i){ return i; }));
+    h += '<div class="opts" data-order="' + order.join(',') + '">';
+    for (var i = 0; i < order.length; i++){
+      var k = order[i], cls = '';
+      if (sol){ if (k === mi.a) cls = ' ok'; else if (k === sol.pick) cls = ' ko'; }
+      h += '<button type="button" class="opt' + cls + '" data-qa="' + k + '"' + (sol ? ' disabled' : '') + '>' + esc(mi.opts[k]) + '</button>';
+    }
+    h += '</div>';
+  }
+  h += '<div class="fbz" aria-live="polite">' + (sol ? feedbackHTML(p, sol) : (tries[p.id] && tries[p.id].msg ? tries[p.id].msg : '')) + '</div>';
+  return h + '</div>';
+}
+function wordsHTML(p, sol){
+  var parts = p.t.split(/(\[\[[^\]]+\]\])/), h = '', idx = 0;
+  var tr = tries[p.id] || {wrong:{}};
+  for (var i = 0; i < parts.length; i++){
+    var part = parts[i];
+    if (!part) continue;
+    if (part.indexOf('[[') === 0){
+      var txt = part.slice(2, -2);
+      h += '<button type="button" class="w' + (sol ? ' yes' : '') + '" data-w="target"' + (sol ? ' disabled' : '') + '>' + esc(txt) + '</button> ';
+    } else {
+      var ws = part.split(/\s+/);
+      for (var j = 0; j < ws.length; j++){
+        if (!ws[j]) continue;
+        var id = 'w' + (idx++);
+        h += '<button type="button" class="w' + (tr.wrong[id] ? ' no' : '') + '" data-w="' + id + '"' + (sol || tr.wrong[id] ? ' disabled' : '') + '>' + esc(ws[j]) + '</button> ';
+      }
+    }
+  }
+  return h;
+}
+function feedbackHTML(p, sol){
+  if (p.grave) return '<div class="fb neutral"><b>' + (sol.pick === p.mi.a ? 'Exact.' : 'La bonne réponse : ' + esc(p.mi.opts[p.mi.a]) + '.') + '</b>' + esc(p.mi.x) + '</div>';
+  var good = sol.pts > 0;
+  var title = good ? (sol.pts === 3 ? 'Enquête résolue du premier coup !' : 'Enquête résolue.') : 'Enquête close sans trouver.';
+  return '<div class="fb ' + (good ? 'ok' : 'ko') + '"><b>' + title + ' +' + sol.pts + ' pt' + (sol.pts > 1 ? 's' : '') + '</b>' + esc(p.mi.x) + (p.hide ? '<br><b>Date : ' + esc(p.date) + '</b>' : '') + '</div>';
+}
+function solve(p, pts, extra){
+  var o = {pts:pts};
+  if (extra) for (var k in extra) if (extra.hasOwnProperty(k)) o[k] = extra[k];
+  S.solved[p.id] = o; save();
+  delete tries[p.id];
+  rerenderPost(p.id, '.fbz');
+  var st = $('post-' + p.id).querySelector('.stamp');
+  if (st) st.classList.add('pop');
+  renderStories();
+}
+
+document.addEventListener('click', function(ev){
+  var b = ev.target.closest ? ev.target.closest('button') : null;
+  if (!b) return;
+  var art = b.closest('.post'), p = art ? byId(art.id.replace('post-', '')) : null;
+
+  if (b.hasAttribute('data-per')){ S.prefs.period = b.getAttribute('data-per'); save(); renderStories(); renderFeed(); return; }
+  if (b.hasAttribute('data-lv')){
+    var lv = b.getAttribute('data-lv'), ix = S.prefs.levels.indexOf(lv);
+    if (ix >= 0) S.prefs.levels.splice(ix, 1); else S.prefs.levels.push(lv);
+    save(); renderStories(); renderFeed(); return;
+  }
+  if (b.id === 'order'){ S.prefs.old = !S.prefs.old; save(); renderStories(); renderFeed(); return; }
+  if (b.hasAttribute('data-v')){ setView(b.getAttribute('data-v')); return; }
+  if (b.id === 'pts'){ setView('carnet'); return; }
+
+  if (b.hasAttribute('data-like')){
+    var id = b.getAttribute('data-like');
+    if (S.liked[id]) delete S.liked[id]; else S.liked[id] = 1;
+    save();
+    b.setAttribute('aria-pressed', S.liked[id] ? 'true' : 'false');
+    b.querySelector('span').textContent = fmtN(seedLikes(id) + (S.liked[id] ? 1 : 0));
+    b.classList.remove('beat'); void b.offsetWidth; if (S.liked[id]) b.classList.add('beat');
+    return;
+  }
+  if (b.hasAttribute('data-enq')){
+    var pid = b.getAttribute('data-enq');
+    open[pid] = !open[pid];
+    rerenderPost(pid, open[pid] ? '.mis .w:not([disabled]), .mis .opt:not([disabled]), .mis .fb' : '.enq');
+    if (open[pid]){ var m = $('mis-' + pid); if (m && m.scrollIntoView) m.scrollIntoView({block:'nearest', behavior:'smooth'}); }
+    return;
+  }
+  if (!p || S.solved[p.id]) return;
+  var mi = p.mi;
+
+  if (b.hasAttribute('data-w')){
+    var w = b.getAttribute('data-w');
+    if (!tries[p.id]) tries[p.id] = {n:0, wrong:{}};
+    var tr = tries[p.id];
+    if (w === 'target'){ solve(p, Math.max(1, 3 - tr.n)); return; }
+    tr.n++; tr.wrong[w] = true;
+    if (tr.n >= 3){ solve(p, 0); return; }
+    tr.msg = '<div class="fb ko">Non, « ' + esc(b.textContent) + ' » existe bien à cette époque. Encore ' + (3 - tr.n) + ' essai' + (3 - tr.n > 1 ? 's' : '') + '.</div>';
+    rerenderPost(p.id, '.mis .w:not([disabled])');
+    return;
+  }
+  if (b.hasAttribute('data-vf')){
+    var pick = b.getAttribute('data-vf');
+    var ok = (pick === 'v') === (mi.rep === true);
+    solve(p, ok ? 3 : 0, {pick:pick});
+    return;
+  }
+  if (b.hasAttribute('data-qa')){
+    var k = parseInt(b.getAttribute('data-qa'), 10);
+    var order = b.parentNode.getAttribute('data-order').split(',').map(function(x){ return parseInt(x, 10); });
+    solve(p, p.grave ? 0 : (k === mi.a ? 3 : 0), {pick:k, order:order});
+    return;
+  }
+});
+
+/* ---------- Carnet ---------- */
+function renderCarnet(){
+  var p = points(), R = rankOf(p), max = 0, nSolved = 0, nFirst = 0;
+  for (var g = 0; g < POSTS.length; g++) if (!POSTS[g].grave) max += 3;
+  for (var k in S.solved) if (S.solved.hasOwnProperty(k)){ nSolved++; if (S.solved[k].pts === 3) nFirst++; }
+  var h = '<div class="rank"><small>Ton grade</small><h2>' + R.r.name + '</h2><p>' + p + ' point' + (p > 1 ? 's' : '') + ' sur ' + max + '</p>';
+  if (R.next){ var span = R.next.min - R.r.min, pct = Math.round((p - R.r.min) / span * 100); h += '<div class="bar" aria-hidden="true"><i style="width:' + pct + '%"></i></div><p style="margin-top:.5rem;font-weight:600;opacity:.85">Encore ' + (R.next.min - p) + ' pt' + (R.next.min - p > 1 ? 's' : '') + ' pour devenir « ' + R.next.name + ' »</p>'; }
+  else h += '<p style="margin-top:.5rem;font-weight:600;opacity:.85">Grade maximal atteint.</p>';
+  h += '</div>';
+  h += '<h3 class="sec-h">Mes enquêtes par époque</h3>';
+  for (var i = 0; i < PERIODS.length; i++){
+    var pr = PERIODS[i], tot = 0, done = 0;
+    for (var j = 0; j < POSTS.length; j++){ if (POSTS[j].p === pr.k){ tot++; if (S.solved[POSTS[j].id]) done++; } }
+    if (!tot) continue;
+    h += '<div class="prow" style="--pc:var(--p-' + pr.k + ')"><span class="dot" aria-hidden="true">' + pr.e + '</span><div class="pl"><b>' + pr.name + '</b><div class="bar"><i style="width:' + Math.round(done / tot * 100) + '%"></i></div></div><span>' + done + ' / ' + tot + '</span></div>';
+  }
+  h += '<h3 class="sec-h">Mes statistiques</h3><div class="stats">';
+  h += '<div class="stat"><b>' + nSolved + ' / ' + POSTS.length + '</b><span>enquêtes résolues</span></div>';
+  h += '<div class="stat"><b>' + nFirst + '</b><span>trouvées du premier coup</span></div>';
+  var tk = ['ana','vf','src','dat'];
+  for (var t = 0; t < tk.length; t++){
+    var tt = 0, td = 0;
+    for (var q = 0; q < POSTS.length; q++){ if (POSTS[q].mi.type === tk[t]){ tt++; if (S.solved[POSTS[q].id] && S.solved[POSTS[q].id].pts > 0) td++; } }
+    h += '<div class="stat"><b>' + td + ' / ' + tt + '</b><span>' + TYPES[tk[t]].e + ' ' + TYPES[tk[t]].tag + '</span></div>';
+  }
+  h += '</div>';
+  h += '<h3 class="sec-h">Les quatre types d’enquête</h3><ul class="howto">';
+  h += '<li><b>Anachronisme</b> : un objet, un mot ou une pratique ne peut pas exister à l’époque du message. 3 essais.</li>';
+  h += '<li><b>Vrai ou faux</b> : une rumeur, une idée reçue ou un fait ? Une seule réponse.</li>';
+  h += '<li><b>Critique de source</b> : qui parle, et pourquoi ? Une seule réponse.</li>';
+  h += '<li><b>Datation</b> : la date est masquée, les indices sont dans le message. Une seule réponse.</li></ul>';
+  h += '<h3 class="sec-h">Réglages</h3><div class="settings"><button type="button" class="btn" id="s-theme">Thème : ' + (S.prefs.theme === 'dark' ? 'sombre' : 'clair') + '</button><button type="button" class="btn" id="s-dys" aria-pressed="' + !!S.prefs.dys + '">Lecture facilitée : ' + (S.prefs.dys ? 'oui' : 'non') + '</button><button type="button" class="btn danger" id="s-reset">Effacer ma progression</button></div>';
+  $('carnet').innerHTML = h;
+}
+var resetArmed = false;
+$('carnet').addEventListener('click', function(ev){
+  var b = ev.target.closest ? ev.target.closest('button') : null;
+  if (!b) return;
+  if (b.id === 's-theme'){ S.prefs.theme = S.prefs.theme === 'dark' ? 'light' : 'dark'; save(); applyPrefs(); renderCarnet(); focusEl($('s-theme')); }
+  else if (b.id === 's-dys'){ S.prefs.dys = !S.prefs.dys; save(); applyPrefs(); renderCarnet(); focusEl($('s-dys')); }
+  else if (b.id === 's-reset'){
+    if (!resetArmed){ resetArmed = true; b.textContent = 'Confirmer : tout effacer'; return; }
+    resetArmed = false; S.solved = {}; S.liked = {}; tries = {}; open = {}; save(); renderCarnet(); renderStories(); updateTop();
+  }
+});
+
+/* ---------- Vues ---------- */
+function setView(v){
+  view = v;
+  var nb = document.querySelectorAll('.nb');
+  for (var i = 0; i < nb.length; i++){ if (nb[i].getAttribute('data-v') === v) nb[i].setAttribute('aria-current', 'page'); else nb[i].removeAttribute('aria-current'); }
+  $('v-fil').hidden = v === 'carnet';
+  $('v-carnet').hidden = v !== 'carnet';
+  if (v === 'carnet') renderCarnet(); else { renderStories(); renderFeed(); }
+  window.scrollTo(0, 0);
+}
+function applyPrefs(){
+  document.documentElement.setAttribute('data-theme', S.prefs.theme === 'dark' ? 'dark' : 'light');
+  document.body.classList.toggle('dys', !!S.prefs.dys);
+}
+
+applyPrefs();
+renderStories();
+renderFeed();
+})();
+
+</script>
+</body>
+</html>
