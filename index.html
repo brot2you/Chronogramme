@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Chronogramme — l’enquête historique</title>
+<title>Chronogramme V2 — l’enquête historique</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23151A3A%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2230%22%20r%3D%2220%22%20fill%3D%22%234B3FD8%22%20stroke%3D%22%23E4DBFF%22%20stroke-width%3D%223%22%2F%3E%3Cpath%20d%3D%22M32%2017v14l9%206%22%20fill%3D%22none%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M12%2053h8%22%20stroke%3D%22%23F29B38%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M22%2053h8%22%20stroke%3D%22%2322B39B%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M32%2053h8%22%20stroke%3D%22%238B6CF0%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M42%2053h10%22%20stroke%3D%22%23F0587E%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -165,6 +165,102 @@ button{font:inherit;color:inherit}
 .nb .badge{display:inline-block;min-width:1.4em;padding:0 .35em;border-radius:999px;background:var(--heart);color:#fff;font-size:.68rem;line-height:1.4;margin-left:2px}
 
 @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+
+/* === Chronogramme V2 — nouveaux espaces et interface responsive === */
+.hello p{max-width:60ch}
+.intro-banner{margin:13px 16px 2px;padding:17px;border:1px solid rgba(75,63,216,.2);border-radius:20px;background:linear-gradient(132deg,#f5f2ff,#e9f8ff);display:flex;align-items:center;justify-content:space-between;gap:12px;color:#151A3A}
+.intro-banner .eyebrow{font-size:.69rem;letter-spacing:.1em;text-transform:uppercase;color:#4B3FD8;font-weight:900}
+.intro-banner b{display:block;font-family:var(--display);font-size:1rem;line-height:1.32;margin:.3rem 0}
+.intro-banner p{margin:0;font-size:.81rem;color:#505a78}
+.intro-banner button{flex-shrink:0;background:#151A3A;color:white;border:0;border-radius:12px;font-weight:850;padding:.75rem .9rem;min-height:44px;cursor:pointer}
+.pagearea{padding:20px 16px 38px}
+.page-title{font-family:var(--display);font-size:1.5rem;line-height:1.15;letter-spacing:-.035em;margin:0 0 8px}
+.page-desc{font-size:.9rem;color:var(--ink-soft);margin:0 0 18px}
+.page-banner{padding:21px;border-radius:22px;background:linear-gradient(125deg,#211c61,#4b3fd8 65%,#806efa);color:#fff;position:relative;overflow:hidden;margin-bottom:15px}
+.page-banner::after{content:'✦';position:absolute;right:9px;top:-43px;font-size:11rem;line-height:1;opacity:.14}
+.page-banner .page-title{position:relative;z-index:1;color:#fff}
+.page-banner .page-desc{position:relative;z-index:1;color:#f0eefe;margin-bottom:0;max-width:37ch}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0 18px}
+.pill{border:1px solid var(--line);border-radius:999px;background:var(--surface);min-height:40px;padding:8px 13px;font-weight:800;cursor:pointer;font-size:.83rem}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill:disabled{opacity:.35;cursor:not-allowed}
+.era-block{margin:18px 0 28px}
+.era-h{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:.95rem;margin:0 0 11px;line-height:1.2}
+.era-h span{font-size:1.35rem}
+.timeline{margin-left:12px;border-left:3px solid var(--line);padding-left:19px}
+.time-card{width:100%;position:relative;display:flex;gap:12px;text-align:left;margin:0 0 11px;border:1px solid var(--line);border-radius:15px;background:var(--surface);padding:13px;cursor:pointer;min-height:75px}
+.time-card::before{content:'';position:absolute;left:-28px;top:23px;width:13px;height:13px;border-radius:50%;background:var(--pc);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--pc)}
+.time-card .date{font-family:var(--display);font-size:.76rem;font-weight:800;color:var(--accent);min-width:90px;max-width:90px;line-height:1.3}
+.time-card .what{flex:1;min-width:0}
+.time-card .what strong{display:block;font-weight:800;line-height:1.28}
+.time-card .what small{display:block;color:var(--ink-soft);margin-top:5px}
+.time-card .tick{font-size:1rem;color:var(--ok);font-weight:900}
+.time-card:active,.choice-btn:active{transform:scale(.99)}
+.section-kicker{color:var(--accent);text-transform:uppercase;letter-spacing:.11em;font-size:.7rem;font-weight:900;margin:16px 0 4px}
+.lesson-card{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:17px;margin:10px 0}
+.lesson-card .lesson-ref{font-weight:750;color:var(--accent);font-size:.75rem}
+.lesson-card h3{font-family:var(--display);font-size:1rem;line-height:1.3;margin:5px 0 8px}
+.lesson-card p{font-size:.9rem;margin:0 0 9px;color:var(--ink-soft)}
+.lesson-card .cue{font-size:.85rem;background:var(--soft);border-radius:10px;padding:9px 11px;font-weight:750}
+.lesson-card .cue b{color:var(--accent)}
+.segment{border-radius:14px;background:var(--soft);display:flex;padding:5px;gap:4px;margin-bottom:16px}
+.segment button{border:0;background:transparent;flex:1;padding:10px 7px;min-height:42px;font-size:.84rem;font-weight:800;border-radius:10px;cursor:pointer}
+.segment button[aria-pressed="true"]{background:var(--surface);box-shadow:0 1px 5px rgba(21,26,58,.12)}
+.game-modes{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0 16px}
+.mode-card{position:relative;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:18px;padding:16px;cursor:pointer;display:flex;gap:13px;align-items:center;min-height:96px}
+.mode-card[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
+.mode-card .mode-icon{font-size:1.7rem;display:grid;place-items:center;width:52px;height:52px;background:var(--t-cont);border-radius:14px;flex-shrink:0}
+.mode-card strong{display:block;font-weight:850;font-size:1rem}
+.mode-card small{display:block;color:var(--ink-soft);font-size:.82rem;line-height:1.35;margin-top:3px}
+.primary{border:0;min-height:50px;border-radius:13px;padding:11px 17px;background:var(--accent);color:var(--accent-ink);font-weight:850;cursor:pointer;font-size:.95rem}
+.primary:disabled{opacity:.55;cursor:not-allowed}
+.secondary{border:1px solid var(--line);background:var(--surface);min-height:44px;border-radius:12px;padding:9px 14px;font-weight:800;cursor:pointer}
+.game-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px}
+.game-shell{border:1px solid var(--line);border-radius:20px;padding:18px;background:var(--surface)}
+.game-top{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--ink-soft);font-size:.85rem;font-weight:800}
+.game-meter{height:8px;border-radius:20px;background:var(--soft);margin:12px 0 20px;overflow:hidden}
+.game-meter i{height:100%;display:block;background:var(--accent);transition:width .2s ease}
+.game-shell h3{font-family:var(--display);font-size:1.08rem;line-height:1.33;margin:0 0 12px}
+.source-snippet{border-left:4px solid var(--accent);margin:13px 0 16px;padding:10px 12px;background:var(--soft);font-size:.94rem;line-height:1.5;border-radius:0 10px 10px 0}
+.source-snippet small{font-size:.72rem;font-weight:900;display:block;color:var(--accent);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.choices{display:grid;gap:9px}
+.choice-btn{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;text-align:left;min-height:48px;font-weight:750;cursor:pointer}
+.choice-btn[disabled]{cursor:default;opacity:.7}
+.choice-btn.correct{background:var(--ok-soft);color:var(--ok);border:2px solid var(--ok);opacity:1}
+.choice-btn.incorrect{background:var(--ko-soft);color:var(--ko);border:2px solid var(--ko);opacity:1}
+.game-feedback{margin:15px 0 0;background:var(--soft);border-radius:12px;padding:13px;font-size:.91rem;line-height:1.45}
+.game-feedback strong{display:block;margin-bottom:4px}
+.order-item{display:flex;align-items:center;gap:8px;border:1px solid var(--line);padding:9px;border-radius:12px;margin:8px 0;background:var(--surface)}
+.order-item .index{background:var(--soft);border-radius:9px;font-weight:900;min-width:29px;text-align:center;padding:8px 4px}
+.order-item b{flex:1;font-size:.91rem;line-height:1.35}
+.order-item .move-controls{display:flex;gap:4px}
+.order-item .move-controls button{border:1px solid var(--line);border-radius:9px;background:var(--soft);min-width:37px;min-height:40px;cursor:pointer;font-weight:900}
+.order-item button:disabled{opacity:.35;cursor:default}
+.order-item.wrong{border-color:var(--ko)}
+.result{border-radius:18px;padding:22px;text-align:center;background:var(--soft)}
+.result .result-icon{font-size:3rem;line-height:1.2}
+.result h3{font-family:var(--display);margin:8px 0 6px}
+.result p{margin:0 0 12px;color:var(--ink-soft)}
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.collectible{padding:13px 9px;border:1px solid var(--line);border-radius:14px;text-align:center;background:var(--surface)}
+.collectible .symbol{display:block;font-size:2.2rem;line-height:1.25;margin-bottom:5px}
+.collectible b{display:block;font-size:.81rem}
+.collectible small{display:block;font-size:.75rem;color:var(--ink-soft)}
+.collectible.locked{opacity:.48;filter:grayscale(1)}
+.carnet-tools{padding:15px;border:1px solid var(--line);border-radius:16px;display:flex;gap:9px;flex-wrap:wrap}
+.note{font-size:.8rem;color:var(--ink-soft);margin:.5rem 0}
+.carnet-tools input[type=file]{display:none}
+.carnet-tools label{display:inline-flex;align-items:center;cursor:pointer}
+:root[data-theme="dark"] .intro-banner{background:linear-gradient(125deg,#2c285e,#183852);color:#f3f1ff;border-color:#6158bd}
+:root[data-theme="dark"] .intro-banner p{color:#c9cbeb}
+:root[data-theme="dark"] .intro-banner .eyebrow{color:#cfcaff}
+:root[data-theme="dark"] .intro-banner button{background:#a9a1ff;color:#16133b}
+:root[data-theme="dark"] .page-banner{background:linear-gradient(125deg,#3d3590,#655bd0)}
+.nb{font-size:.71rem}
+.nb span{white-space:nowrap}
+@media (max-width:400px){.time-card .date{min-width:76px;max-width:76px;font-size:.69rem}.nb{font-size:.65rem}.nb svg{width:22px;height:22px}.intro-banner{align-items:stretch;flex-direction:column}.intro-banner button{align-self:flex-start}}
+@media (min-width:720px){.col,.nav-in{max-width:740px}.pagearea{padding:25px 30px}.stories{padding-left:30px}.filters{padding-left:30px}.game-modes{grid-template-columns:repeat(3,1fr)}.mode-card{align-items:flex-start;flex-direction:column;min-height:158px}.mode-card .mode-icon{height:40px;width:40px}.badges{grid-template-columns:repeat(3,1fr)}}
+
 </style>
 </head>
 <body>
@@ -175,11 +271,14 @@ button{font:inherit;color:inherit}
   </header>
   <main>
     <section id="v-fil">
-      <div class="hello"><p>Des témoins du passé publient. Certains se trompent, d’autres mentent ou exagèrent. À toi d’enquêter sur chaque publication.</p></div>
+      <div class="hello"><p>Des personnages fictifs publient comme s’ils vivaient dans le passé. Certains messages contiennent une erreur ou un point de vue à analyser. À toi d’enquêter !</p></div>
+      <div class="intro-banner" id="next-card"></div>
       <div class="stories" id="stories" role="group" aria-label="Choisir une période"></div>
       <div class="filters" id="filters"></div>
       <div id="feed"></div>
     </section>
+    <section id="v-frise" hidden><div class="pagearea" id="frise"></div></section>
+    <section id="v-defis" hidden><div class="pagearea" id="defis"></div></section>
     <section id="v-carnet" hidden><div class="carnet" id="carnet"></div></section>
   </main>
 </div>
@@ -187,6 +286,8 @@ button{font:inherit;color:inherit}
   <div class="nav-in">
     <button class="nb" type="button" data-v="fil" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Fil</button>
     <button class="nb" type="button" data-v="todo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span>À résoudre <span class="badge" id="todo-n">0</span></span></button>
+    <button class="nb" type="button" data-v="frise"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="8" cy="6" r="2" fill="currentColor"/><circle cx="15" cy="12" r="2" fill="currentColor"/><circle cx="11" cy="18" r="2" fill="currentColor"/></svg>Frise</button>
+    <button class="nb" type="button" data-v="defis"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v8a6 6 0 0 1-12 0V4Zm0 3H3v3a4 4 0 0 0 4 4m11-7h3v3a4 4 0 0 1-4 4M12 18v3m-5 0h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Défis</button>
     <button class="nb" type="button" data-v="carnet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h11a2 2 0 0 1 2 2v16l-7.5-4L4 21V5a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Mon carnet</button>
   </div>
 </nav>
@@ -314,6 +415,7 @@ function renderFeed(){
   for (var i = 0; i < list.length; i++) h += postHTML(list[i]);
   $('feed').innerHTML = h;
   updateTop();
+  renderNextCard();
 }
 function rerenderPost(id, focusSel){
   var p = byId(id), el = $('post-' + id);
@@ -392,6 +494,7 @@ function solve(p, pts, extra){
   var st = $('post-' + p.id).querySelector('.stamp');
   if (st) st.classList.add('pop');
   renderStories();
+  renderNextCard();
 }
 
 document.addEventListener('click', function(ev){
@@ -485,6 +588,7 @@ function renderCarnet(){
   h += '<li><b>Critique de source</b> : qui parle, et pourquoi ? Une seule réponse.</li>';
   h += '<li><b>Datation</b> : la date est masquée, les indices sont dans le message. Une seule réponse.</li></ul>';
   h += '<h3 class="sec-h">Réglages</h3><div class="settings"><button type="button" class="btn" id="s-theme">Thème : ' + (S.prefs.theme === 'dark' ? 'sombre' : 'clair') + '</button><button type="button" class="btn" id="s-dys" aria-pressed="' + !!S.prefs.dys + '">Lecture facilitée : ' + (S.prefs.dys ? 'oui' : 'non') + '</button><button type="button" class="btn danger" id="s-reset">Effacer ma progression</button></div>';
+  h += extraCarnetHTML();
   $('carnet').innerHTML = h;
 }
 var resetArmed = false;
@@ -493,9 +597,11 @@ $('carnet').addEventListener('click', function(ev){
   if (!b) return;
   if (b.id === 's-theme'){ S.prefs.theme = S.prefs.theme === 'dark' ? 'light' : 'dark'; save(); applyPrefs(); renderCarnet(); focusEl($('s-theme')); }
   else if (b.id === 's-dys'){ S.prefs.dys = !S.prefs.dys; save(); applyPrefs(); renderCarnet(); focusEl($('s-dys')); }
+  else if (b.id === 's-export'){ exportProgress(); }
+  else if (b.id === 's-import'){ $('s-import-file').click(); }
   else if (b.id === 's-reset'){
     if (!resetArmed){ resetArmed = true; b.textContent = 'Confirmer : tout effacer'; return; }
-    resetArmed = false; S.solved = {}; S.liked = {}; tries = {}; open = {}; save(); renderCarnet(); renderStories(); updateTop();
+    resetArmed = false; S.solved = {}; S.liked = {}; S.extra = {best:{},games:0}; tries = {}; open = {}; save(); renderCarnet(); renderStories(); updateTop(); renderNextCard();
   }
 });
 
@@ -504,15 +610,248 @@ function setView(v){
   view = v;
   var nb = document.querySelectorAll('.nb');
   for (var i = 0; i < nb.length; i++){ if (nb[i].getAttribute('data-v') === v) nb[i].setAttribute('aria-current', 'page'); else nb[i].removeAttribute('aria-current'); }
-  $('v-fil').hidden = v === 'carnet';
+  $('v-fil').hidden = !(v === 'fil' || v === 'todo');
+  $('v-frise').hidden = v !== 'frise';
+  $('v-defis').hidden = v !== 'defis';
   $('v-carnet').hidden = v !== 'carnet';
-  if (v === 'carnet') renderCarnet(); else { renderStories(); renderFeed(); }
+  if (v === 'carnet') renderCarnet();
+  else if (v === 'frise') renderFrise();
+  else if (v === 'defis') renderDefis();
+  else { renderStories(); renderFeed(); }
   window.scrollTo(0, 0);
 }
 function applyPrefs(){
   document.documentElement.setAttribute('data-theme', S.prefs.theme === 'dark' ? 'dark' : 'light');
   document.body.classList.toggle('dys', !!S.prefs.dys);
 }
+
+
+/* === V2 : Frise, fiches de révision, défis et sauvegarde === */
+if (!S.extra || typeof S.extra !== 'object') S.extra = {best:{},games:0};
+if (!S.extra.best || typeof S.extra.best !== 'object') S.extra.best = {};
+if (!Number.isFinite(S.extra.games)) S.extra.games = 0;
+var FR = {level:'all', section:'timeline'};
+var G = {level:'3',mode:'chrono',active:false,done:false,questions:[],step:0,score:0,answered:null,order:[]};
+var FICHES = [
+ {n:'6',title:'Les premiers humains et la révolution néolithique',ref:'La longue histoire de l’humanité',text:'Les humains vivent d’abord de chasse, de pêche et de cueillette. L’agriculture et l’élevage apparaissent progressivement dans plusieurs régions : les sociétés et les paysages se transforment.',cue:'Paléolithique → Néolithique ; distinguer nomadisme et sédentarisation.'},
+ {n:'6',title:'Premiers États, premières écritures',ref:'Les débuts de l’histoire',text:'En Mésopotamie et en Égypte, des sociétés se structurent autour de villes, de pouvoirs et d’administrations. L’écriture sert notamment à tenir des comptes et transmettre des informations.',cue:'Vers 3 300 av. J.-C. : premières écritures en Mésopotamie.'},
+ {n:'6',title:'La Méditerranée antique',ref:'Cités grecques et monde romain',text:'Les Grecs développent des cités aux régimes variés. La démocratie athénienne reste limitée à une partie de la population. Rome construit un empire autour de la Méditerranée.',cue:'Ve siècle av. J.-C. : Athènes ; 52 av. J.-C. : Alésia.'},
+ {n:'5',title:'Chrétientés et islam au Moyen Âge',ref:'Des mondes en contact',text:'L’empire byzantin, l’Occident carolingien et les États du monde musulman connaissent des organisations politiques et culturelles différentes. Ils échangent, commercent et parfois s’affrontent.',cue:'622 : Hégire ; 800 : couronnement de Charlemagne.'},
+ {n:'5',title:'Seigneurs, paysans et villes',ref:'Société féodale',text:'Dans les campagnes, la seigneurie organise des relations de dépendance. Les villes se développent : marchands, artisans et pouvoirs urbains y jouent un rôle croissant.',cue:'XIe-XIIIe siècles : essor des campagnes et des villes.'},
+ {n:'5',title:'Renaissance, découvertes et pouvoir royal',ref:'Transformations européennes',text:'Les voyages relient davantage les continents, mais les conquêtes entraînent violences et dominations. L’imprimerie facilite la circulation des idées ; la monarchie se renforce en France.',cue:'Vers 1450 : imprimerie ; 1492 : premier voyage de Colomb ; 1682 : Versailles.'},
+ {n:'4',title:'Lumières, traites et révolutions',ref:'Le XVIIIe siècle',text:'Les philosophes des Lumières critiquent des formes d’autorité et débattent de la liberté. Les sociétés atlantiques sont aussi marquées par la traite esclavagiste. La Révolution française bouleverse les institutions.',cue:'1789 : Révolution française et Déclaration des droits.'},
+ {n:'4',title:'Industrialisation et colonisations',ref:'L’Europe au XIXe siècle',text:'Les innovations techniques modifient la production et les transports. L’urbanisation progresse ; ouvriers et patrons connaissent des conditions très différentes. Des puissances européennes étendent leurs empires coloniaux.',cue:'XIXe siècle : industrialisation, urbanisation et conquêtes coloniales.'},
+ {n:'4',title:'Conquérir les droits politiques et sociaux',ref:'La France au XIXe siècle',text:'Le droit de vote et les libertés évoluent par étapes. La République s’installe durablement, mais les femmes demeurent longtemps exclues de nombreux droits.',cue:'1848 : suffrage universel masculin ; 1881-1882 : lois scolaires de Ferry.'},
+ {n:'3',title:'Guerres mondiales et régimes totalitaires',ref:'L’Europe de 1914 à 1945',text:'Les deux guerres mondiales mobilisent profondément les sociétés. Entre les deux conflits, des régimes totalitaires imposent une idéologie et répriment les libertés. La Seconde Guerre mondiale est aussi marquée par le génocide des Juifs et des Tsiganes.',cue:'1914-1918 ; 1939-1945 ; 18 juin 1940 ; 1944 : Libération.'},
+ {n:'3',title:'La guerre froide et le monde depuis 1945',ref:'Un monde en recomposition',text:'Après 1945, les États-Unis et l’URSS dominent deux blocs concurrents. La décolonisation transforme la carte du monde ; la construction européenne progresse.',cue:'1957 : traités de Rome ; 1962 : crise de Cuba ; 1989 : chute du mur de Berlin.'},
+ {n:'3',title:'République et transformations sociales',ref:'La France depuis 1944',text:'Le droit de vote est étendu aux femmes, la sécurité sociale est créée et la Ve République s’installe. Les évolutions sociales s’accompagnent de nouvelles lois et de débats démocratiques.',cue:'1944 : droit de vote des femmes ; 1958 : Ve République ; 1975 : loi Veil.'}
+];
+function gradeButton(label, value, chosen, att){ return '<button type="button" class="pill" '+att+'="'+value+'" aria-pressed="'+(chosen === value)+'">'+label+'</button>'; }
+function renderNextCard(){
+ var target = $('next-card'); if(!target) return;
+ var pool = POSTS.filter(function(p){return !S.solved[p.id] && inArr(S.prefs.levels,p.n) && (S.prefs.period==='all' || S.prefs.period===p.p);});
+ pool.sort(function(a,b){return S.prefs.old ? a.y-b.y:b.y-a.y;});
+ if (!pool.length){target.innerHTML='<div><span class="eyebrow">Progression</span><b>Bravo, toutes les enquêtes de ce filtre sont terminées !</b><p>Explore une autre époque ou passe aux défis.</p></div><button type="button" data-v="defis">Défis →</button>';return;}
+ var p=pool[0];
+ target.innerHTML='<div><span class="eyebrow">Ta prochaine mission</span><b>'+esc(p.m)+'</b><p>'+esc(p.n)+'e · '+esc(periodName(p.p))+' · '+pool.length+' enquête'+(pool.length>1?'s':'')+' à faire</p></div><button type="button" id="jump-next" data-target="'+p.id+'">Enquêter →</button>';
+}
+function renderFrise(){
+ var h='<div class="page-banner"><div class="section-kicker" style="color:#c8c4ff">EXPLORER LE PASSÉ</div><h2 class="page-title">La frise vivante</h2><p class="page-desc">Revois les repères historiques et ouvre une enquête à partir d’un événement.</p></div>';
+ h+='<div class="segment" role="group" aria-label="Contenu de la frise"><button data-fr-tab="timeline" aria-pressed="'+(FR.section==='timeline')+'">📍 Frise</button><button data-fr-tab="fiches" aria-pressed="'+(FR.section==='fiches')+'">📚 Fiches leçon</button></div>';
+ h+='<div class="pills" role="group" aria-label="Niveau">'+gradeButton('Tous','all',FR.level,'data-fr-level');
+ for(var l=0;l<LEVELS.length;l++)h+=gradeButton(LEVELS[l]+'e',LEVELS[l],FR.level,'data-fr-level');
+ h+='</div>';
+ if(FR.section==='fiches'){
+   h+='<p class="page-desc">Ces 12 fiches offrent des repères essentiels : elles ne remplacent pas le cours complet.</p>';
+   var count=0;
+   for(var a=0;a<FICHES.length;a++){
+    var f=FICHES[a];if(FR.level!=='all'&&FR.level!==f.n)continue;count++;
+    h+='<article class="lesson-card"><div class="lesson-ref">'+esc(f.n)+'e · '+esc(f.ref)+'</div><h3>'+esc(f.title)+'</h3><p>'+esc(f.text)+'</p><div class="cue"><b>À retenir :</b> '+esc(f.cue)+'</div></article>';
+   }
+ } else {
+   var records=POSTS.filter(function(p){return FR.level==='all'||p.n===FR.level;}).slice();
+   records.sort(function(a,b){return a.y-b.y;});
+   for(var i=0;i<PERIODS.length;i++){
+    var period=PERIODS[i],group=records.filter(function(p){return p.p===period.k;});if(!group.length)continue;
+    h+='<section class="era-block"><h3 class="era-h"><span>'+period.e+'</span>'+esc(period.name)+' <small style="color:var(--ink-soft);font-family:var(--sans)">· '+group.length+' repères</small></h3><div class="timeline">';
+    for(var j=0;j<group.length;j++){
+     var p=group[j];h+='<button class="time-card" style="--pc:var(--p-'+p.p+')" type="button" data-fr-post="'+p.id+'" aria-label="Voir l’enquête : '+esc(p.m)+'"><span class="date">'+esc(p.date)+'</span><span class="what"><strong>'+esc(p.m)+'</strong><small>'+esc(p.ch)+' · '+p.n+'e</small></span><span class="tick">'+(S.solved[p.id]?'✓':'→')+'</span></button>';
+    }
+    h+='</div></section>';
+   }
+ }
+ $('frise').innerHTML=h;
+}
+function shuffleCopy(a){return shuffle(a.slice());}
+function makeQuestions(){
+ var pool=POSTS.filter(function(p){return p.n===G.level;});
+ if(G.mode==='chrono'){
+  var shuffled=shuffleCopy(pool), chosen=[], used={};
+  for(var i=0;i<shuffled.length && chosen.length<4;i++){var p=shuffled[i];if(used[p.y])continue;used[p.y]=true;chosen.push(p);}
+  G.questions=[{type:'chrono',posts:chosen}];G.order=shuffleCopy(chosen.map(function(p){return p.id;}));
+ } else if(G.mode==='dates'){
+  var distinct=[], seen={};
+  for(var j=0;j<pool.length;j++){if(seen[pool[j].date])continue;seen[pool[j].date]=true;distinct.push(pool[j]);}
+  var selected=shuffleCopy(distinct).slice(0,Math.min(5,distinct.length));
+  G.questions=selected.map(function(p){
+   var other=shuffleCopy(distinct.filter(function(q){return q.date!==p.date;})).slice(0,3).map(function(q){return q.date;});
+   return {type:'quiz',post:p,question:'À quelle date situe-t-on cet événement ?',options:shuffleCopy([p.date].concat(other)),answer:p.date};
+  });
+ } else {
+  var qs=shuffleCopy(pool.filter(function(p){return p.mi.type!=='ana';})).slice(0,6);
+  G.questions=qs.map(function(p){
+   var mi=p.mi, options,answer;
+   if(mi.type==='vf'){options=(mi.lab||['Vrai','Faux']).slice();answer=options[mi.rep===true?0:1];}
+   else{options=mi.opts.slice();answer=mi.opts[mi.a];}
+   return {type:'quiz',post:p,question:mi.q||'Choisis la bonne réponse.',options:shuffleCopy(options),answer:answer};
+  });
+ }
+}
+function startGame(){
+ if(G.mode==='brevet')G.level='3';
+ G.active=true;G.done=false;G.step=0;G.score=0;G.answered=null;
+ makeQuestions();renderDefis();
+}
+function finishGame(){
+ G.done=true;G.active=false;
+ var key=G.mode+'-'+G.level;var prev=S.extra.best[key]||0;
+ S.extra.best[key]=Math.max(prev,G.score);
+ S.extra.games++;save();renderDefis();
+}
+function gameLabel(){return G.mode==='chrono'?'La machine à remonter le temps':(G.mode==='dates'?'Les repères mystères':'Brevet express · Histoire');}
+function renderGame(){
+ if(G.done){
+  var perfect=G.score===G.questions.length;
+  return '<div class="result"><div class="result-icon">'+(perfect?'🏆':'🎓')+'</div><h3>'+esc(perfect?'Mission parfaite !':'Mission terminée !')+'</h3><p>'+G.score+' / '+G.questions.length+' bonne'+(G.score>1?'s':'')+' réponse'+(G.score>1?'s':'')+'. '+(perfect?'Badge ou record possible dans ton carnet.':'Les corrections t’aident à progresser.')+'</p><div class="game-actions" style="justify-content:center"><button type="button" class="primary" data-g-start>Rejouer</button><button type="button" class="secondary" data-g-home>Autres défis</button></div></div>';
+ }
+ if(!G.active)return '';
+ var q=G.questions[G.step],h='<div class="game-shell"><div class="game-top"><span>'+esc(gameLabel())+'</span><span>'+(G.step+1)+' / '+G.questions.length+' · '+G.score+' ★</span></div><div class="game-meter"><i style="width:'+Math.round(G.step/G.questions.length*100)+'%"></i></div>';
+ if(q.type==='chrono'){
+  h+='<h3>Replace les 4 événements du plus ancien au plus récent.</h3><p class="page-desc">Utilise les flèches pour changer l’ordre. Les dates sont révélées après validation.</p>';
+  for(var i=0;i<G.order.length;i++){
+   var p=byId(G.order[i]);
+   h+='<div class="order-item"><span class="index">'+(i+1)+'</span><b>'+esc(p.m)+'</b><span class="move-controls"><button type="button" data-g-move="'+i+':-1" aria-label="Monter '+esc(p.m)+'" '+(G.answered!==null||i===0?'disabled':'')+'>↑</button><button type="button" data-g-move="'+i+':1" aria-label="Descendre '+esc(p.m)+'" '+(G.answered!==null||i===G.order.length-1?'disabled':'')+'>↓</button></span></div>';
+  }
+  if(G.answered===null)h+='<div class="game-actions"><button type="button" class="primary" data-g-check>Vérifier la chronologie</button></div>';
+  else {
+    var sorted=q.posts.slice().sort(function(a,b){return a.y-b.y;});
+    h+='<div class="game-feedback"><strong>'+(G.answered?'✅ Bonne chronologie !':'🔍 Voici l’ordre historique :')+'</strong>'+sorted.map(function(p){return esc(p.date)+' — '+esc(p.m);}).join('<br>')+'</div>';
+    h+='<div class="game-actions"><button type="button" class="primary" data-g-next>Voir mon résultat →</button></div>';
+  }
+ } else {
+   var p=q.post;
+   h+='<div class="section-kicker">'+esc(p.n)+'e · '+esc(periodName(p.p))+'</div><h3>'+esc(p.m)+'</h3>';
+   h+='<div class="source-snippet"><small>Témoignage fictif pour apprendre l’histoire</small>'+esc(plain(p.t))+'</div>';
+   h+='<p style="font-weight:850;margin:10px 0 14px">'+esc(q.question)+'</p><div class="choices">';
+   for(var a=0;a<q.options.length;a++){
+    var ans=q.options[a],cl=G.answered===null?'':(ans===q.answer?' correct':(ans===G.answered?' incorrect':''));
+    h+='<button type="button" class="choice-btn'+cl+'" data-g-answer="'+a+'" '+(G.answered===null?'':'disabled')+'>'+esc(ans)+'</button>';
+   }
+   h+='</div>';
+   if(G.answered!==null){
+    h+='<div class="game-feedback" role="status"><strong>'+(G.answered===q.answer?'✅ Exact !':'💡 À retenir : '+esc(q.answer))+'</strong>'+esc(p.mi.x)+'</div>';
+    h+='<div class="game-actions"><button type="button" class="primary" data-g-next>'+(G.step===G.questions.length-1?'Voir mon résultat →':'Question suivante →')+'</button></div>';
+   }
+ }
+ return h+'</div>';
+}
+function renderDefis(){
+ var h='<div class="page-banner"><div class="section-kicker" style="color:#c8c4ff">S’ENTRAÎNER</div><h2 class="page-title">Le QG des défis</h2><p class="page-desc">De nouveaux défis à chaque partie, avec correction immédiate et scores sauvegardés localement.</p></div>';
+ if(G.active||G.done){h+=renderGame();h+='<div class="game-actions"><button class="secondary" type="button" data-g-home>← Choisir un défi</button></div>';}
+ else {
+  h+='<p class="section-kicker">01 · Choisis ton niveau</p><div class="pills" role="group" aria-label="Niveau du défi">';
+  for(var i=0;i<LEVELS.length;i++){if(G.mode==='brevet'&&LEVELS[i]!=='3')h+='<button class="pill" type="button" disabled aria-pressed="false">'+LEVELS[i]+'e</button>';else h+=gradeButton(LEVELS[i]+'e',LEVELS[i],G.level,'data-g-level');}
+  h+='</div><p class="section-kicker">02 · Choisis ton jeu</p><div class="game-modes">';
+  var modes=[{id:'chrono',e:'⏳',title:'Défi chronologie',desc:'Remets 4 événements dans l’ordre.'},{id:'dates',e:'🗓️',title:'Dates mystères',desc:'5 dates à retrouver avec des indices.'},{id:'brevet',e:'🎓',title:'Brevet express',desc:'6 questions de 3e pour s’entraîner.'}];
+  for(var j=0;j<modes.length;j++){var m=modes[j];h+='<button type="button" class="mode-card" data-g-mode="'+m.id+'" aria-pressed="'+(G.mode===m.id)+'"><span class="mode-icon">'+m.e+'</span><span><strong>'+m.title+'</strong><small>'+m.desc+'</small></span></button>';}
+  h+='</div>';
+  if(G.mode==='brevet')h+='<p class="note">Le mode Brevet express utilise uniquement les publications de 3e. Il s’agit d’un entraînement, pas d’un sujet officiel du DNB.</p>';
+  var key=G.mode+'-'+(G.mode==='brevet'?'3':G.level);var best=S.extra.best[key];
+  h+='<div class="game-actions"><button class="primary" type="button" data-g-start>🚀 Lancer la mission</button></div>';
+  if(best!==undefined)h+='<p class="note">Meilleur score enregistré pour ce défi : '+best+' point'+(best>1?'s':'')+'.</p>';
+ }
+ $('defis').innerHTML=h;
+}
+function extraCarnetHTML(){
+ var best=S.extra.best||{}, entries=[
+  {icon:'🕵️',name:'Premier indice',desc:'Résoudre 1 enquête',done:nSolvedAll()>=1},
+  {icon:'📜',name:'Archiviste',desc:'Résoudre 15 enquêtes',done:nSolvedAll()>=15},
+  {icon:'🗺️',name:'Voyageur du temps',desc:'Résoudre 1 enquête par époque',done:PERIODS.every(function(pr){return POSTS.some(function(p){return p.p===pr.k && S.solved[p.id];});})},
+  {icon:'⌛',name:'Maître du temps',desc:'Réussir un défi chrono',done:LEVELS.some(function(l){return best['chrono-'+l]===1;})},
+  {icon:'📅',name:'Gardien des dates',desc:'Réussir 5 dates sur 5',done:LEVELS.some(function(l){return best['dates-'+l]===5;})},
+  {icon:'🎓',name:'Mention histoire',desc:'Réussir 6 / 6 au Brevet express',done:best['brevet-3']===6}
+ ];
+ var h='<h3 class="sec-h">Ma collection de badges</h3><div class="badges">';
+ for(var i=0;i<entries.length;i++){var o=entries[i];h+='<div class="collectible'+(o.done?'':' locked')+'" title="'+(o.done?'Débloqué':'À débloquer')+'"><span class="symbol">'+o.icon+'</span><b>'+o.name+'</b><small>'+o.desc+'</small></div>';}
+ h+='</div><h3 class="sec-h">Mes défis</h3><div class="stats"><div class="stat"><b>'+S.extra.games+'</b><span>défis terminés</span></div><div class="stat"><b>'+entries.filter(function(o){return o.done;}).length+' / '+entries.length+'</b><span>badges obtenus</span></div></div>';
+ h+='<h3 class="sec-h">Ma sauvegarde</h3><div class="carnet-tools"><button type="button" class="btn" id="s-export">⬇ Exporter</button><button type="button" class="btn" id="s-import">⬆ Importer</button><input type="file" id="s-import-file" accept=".json,application/json" aria-label="Choisir une sauvegarde Chronogramme"><p class="note">Les résultats sont enregistrés sur cet appareil. Exporte un fichier pour les retrouver sur un autre navigateur ; aucune donnée n’est envoyée sur un serveur.</p></div>';
+ return h;
+}
+function exportProgress(){
+ var data={app:'Chronogramme',format:2,exportedAt:new Date().toISOString(),state:S};
+ var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download='chronogramme-sauvegarde.json';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},600);
+}
+$('carnet').addEventListener('change',function(ev){
+ if(ev.target.id!=='s-import-file')return;
+ var file=ev.target.files && ev.target.files[0]; if(!file)return;
+ var reader=new FileReader();reader.onload=function(){
+  try{
+   var obj=JSON.parse(reader.result);
+   if(obj.app!=='Chronogramme'||!obj.state||!obj.state.solved||!obj.state.prefs)throw new Error('Format incorrect');
+   if(!window.confirm('Remplacer la progression actuelle par celle du fichier ?'))return;
+   var st=obj.state;
+   S.solved={};for(var id in st.solved)if(st.solved.hasOwnProperty(id)&&byId(id)){S.solved[id]=st.solved[id];}
+   S.liked=st.liked&&typeof st.liked==='object'?st.liked:{};
+   S.prefs=st.prefs&&typeof st.prefs==='object'?st.prefs:S.prefs;
+   if(!Array.isArray(S.prefs.levels))S.prefs.levels=LEVELS.slice();
+   if(PERIODS.every(function(p){return p.k!==S.prefs.period;}))S.prefs.period='all';
+   S.extra=st.extra&&typeof st.extra==='object'?st.extra:{best:{},games:0};
+   if(!S.extra.best||typeof S.extra.best!=='object')S.extra.best={};
+   if(!Number.isFinite(S.extra.games))S.extra.games=0;
+   save();applyPrefs();renderCarnet();renderStories();renderNextCard();updateTop();
+   window.alert('Sauvegarde importée avec succès.');
+  }catch(e){window.alert('Ce fichier ne contient pas une sauvegarde Chronogramme valide.');}
+ };
+ reader.readAsText(file);
+});
+document.addEventListener('click',function(ev){
+ var b=ev.target.closest?ev.target.closest('button'):null;if(!b)return;
+ if(b.id==='jump-next'){
+  var id=b.getAttribute('data-target');open[id]=true;rerenderPost(id,'.mis .w:not([disabled]), .mis .opt:not([disabled])');
+  var item=$('post-'+id);if(item)item.scrollIntoView({behavior:'smooth',block:'start'});return;
+ }
+ if(b.hasAttribute('data-fr-tab')){FR.section=b.getAttribute('data-fr-tab');renderFrise();return;}
+ if(b.hasAttribute('data-fr-level')){FR.level=b.getAttribute('data-fr-level');renderFrise();return;}
+ if(b.hasAttribute('data-fr-post')){
+  var pid=b.getAttribute('data-fr-post'),p=byId(pid);
+  if(p){S.prefs.levels=LEVELS.slice();S.prefs.period='all';save();open[pid]=true;setView('fil');
+   var el=$('post-'+pid);if(el){rerenderPost(pid);el=$('post-'+pid);el.scrollIntoView({behavior:'smooth',block:'start'});}}
+  return;
+ }
+ if(b.hasAttribute('data-g-level')){G.level=b.getAttribute('data-g-level');renderDefis();return;}
+ if(b.hasAttribute('data-g-mode')){G.mode=b.getAttribute('data-g-mode');if(G.mode==='brevet')G.level='3';renderDefis();return;}
+ if(b.hasAttribute('data-g-start')){startGame();return;}
+ if(b.hasAttribute('data-g-home')){G.active=false;G.done=false;G.answered=null;renderDefis();return;}
+ if(b.hasAttribute('data-g-move') && G.active && G.answered===null){
+  var move=b.getAttribute('data-g-move').split(':'), i=parseInt(move[0],10),j=i+parseInt(move[1],10);
+  if(i>=0&&i<G.order.length&&j>=0&&j<G.order.length){var v=G.order[i];G.order[i]=G.order[j];G.order[j]=v;renderDefis();}
+  return;
+ }
+ if(b.hasAttribute('data-g-check') && G.active && G.answered===null){
+  var q=G.questions[G.step],correct=q.posts.slice().sort(function(a,b){return a.y-b.y;}).map(function(p){return p.id;});
+  G.answered=G.order.join(',')===correct.join(',');if(G.answered)G.score++;renderDefis();return;
+ }
+ if(b.hasAttribute('data-g-answer') && G.active && G.answered===null){
+  var q=G.questions[G.step],i=parseInt(b.getAttribute('data-g-answer'),10);
+  if(!Number.isFinite(i)||!q.options[i])return;
+  G.answered=q.options[i];if(G.answered===q.answer)G.score++;renderDefis();return;
+ }
+ if(b.hasAttribute('data-g-next') && G.active && G.answered!==null){
+  G.step++;G.answered=null;
+  if(G.step>=G.questions.length)finishGame();else renderDefis();return;
+ }
+});
 
 applyPrefs();
 renderStories();
