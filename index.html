@@ -259,6 +259,31 @@ button{font:inherit;color:inherit}
 @media (max-width:400px){.time-card .date{min-width:76px;max-width:76px;font-size:.69rem}.nb{font-size:.65rem}.nb svg{width:22px;height:22px}.intro-banner{align-items:stretch;flex-direction:column}.intro-banner button{align-self:flex-start}}
 @media (min-width:720px){.col,.nav-in{max-width:740px}.pagearea{padding:25px 30px}.stories{padding-left:30px}.filters{padding-left:30px}.game-modes{grid-template-columns:repeat(3,1fr)}.mode-card{align-items:flex-start;flex-direction:column;min-height:158px}.mode-card .mode-icon{height:40px;width:40px}.badges{grid-template-columns:repeat(3,1fr)}}
 
+
+/* Galerie des 51 histoires — ne modifie pas la progression */
+.atlas-intro{margin-bottom:22px}
+.atlas-intro .page-desc{max-width:680px}
+.atlas-poster{margin:20px 0 28px;padding:14px;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:0 8px 32px rgba(15,22,65,.07)}
+.atlas-poster img{width:100%;height:auto;display:block;border-radius:14px;object-fit:contain}
+.atlas-poster small{display:block;font-size:.78rem;color:var(--ink-soft);margin-top:12px;line-height:1.5}
+.atlas-filters{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:14px 0 23px}
+.atlas-chip{padding:8px 15px;border-radius:100px;border:1px solid var(--line);background:var(--surface);font-weight:800;cursor:pointer;font-size:.85rem}
+.atlas-chip[aria-pressed="true"]{color:#fff;background:#4840b9;border-color:#4840b9}
+.atlas-count{font-size:.82rem;color:var(--ink-soft);margin-left:auto}
+.atlas-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.atlas-card{display:flex;flex-direction:column;padding:0;border:1px solid var(--line);border-radius:17px;background:var(--surface);overflow:hidden;box-shadow:0 8px 26px rgba(15,22,65,.07);cursor:pointer;text-align:left;transition:transform .2s,box-shadow .2s}
+.atlas-card:hover,.atlas-card:focus-visible{transform:translateY(-3px);box-shadow:0 12px 30px rgba(15,22,65,.16)}
+.atlas-art{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.atlas-info{padding:13px 13px 16px;display:grid;gap:4px}
+.atlas-grade{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);font-weight:800}
+.atlas-title{font-size:.93rem;font-weight:850;line-height:1.25;color:var(--ink)}
+.atlas-meta{font-size:.75rem;line-height:1.35;color:var(--ink-soft)}
+.atlas-action{font-size:.78rem;margin-top:8px;color:var(--accent);font-weight:800}
+.atlas-back{margin:0 0 17px;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:9px 13px;font-weight:800;cursor:pointer}
+@media(min-width:620px){.atlas-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:850px){.atlas-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}}
+@media(max-width:390px){.atlas-grid{gap:9px}.atlas-info{padding:9px}.atlas-title{font-size:.82rem}.atlas-meta{font-size:.69rem}}
+
 </style>
 <link rel="stylesheet" href="assets/v3.css">
 </head>
@@ -270,12 +295,13 @@ button{font:inherit;color:inherit}
   </header>
   <main>
     <section id="v-fil">
-      <div class="hello"><div class="v3-home-hero"><div class="hero-text"><div class="mini-eyebrow">UNE AVENTURE POUR LES COLLÉGIENS · 6e → 3e</div><h2>Deviens détective du passé.</h2><p>Chaque époque cache une histoire. Explore 51 publications, vérifie les faits et mène des enquêtes dans notre nouveau cabinet d’archives.</p><div class="hero-buttons"><button type="button" class="hero-action" data-v="dossiers">Entrer dans les archives ↗</button><button type="button" class="hero-action outline" data-v="frise">Explorer la frise →</button></div><div class="hero-counter"><span><b id="v3-n-solved">0</b> / 51 enquêtes</span><span aria-hidden="true">•</span><span><b id="v3-n-cases">0</b> / 8 dossiers</span></div></div></div></div>
+      <div class="hello"><div class="v3-home-hero"><div class="hero-text"><div class="mini-eyebrow">UNE AVENTURE POUR LES COLLÉGIENS · 6e → 3e</div><h2>Deviens détective du passé.</h2><p>Chaque époque cache une histoire. Explore 51 publications, vérifie les faits et mène des enquêtes dans notre nouveau cabinet d’archives.</p><div class="hero-buttons"><button type="button" class="hero-action" data-v="dossiers">Entrer dans les archives ↗</button><button type="button" class="hero-action outline" data-v="frise">Explorer la frise →</button><button type="button" class="hero-action outline" data-v="atlas">Galerie illustrée ↗</button></div><div class="hero-counter"><span><b id="v3-n-solved">0</b> / 51 enquêtes</span><span aria-hidden="true">•</span><span><b id="v3-n-cases">0</b> / 8 dossiers</span></div></div></div></div>
       <div class="intro-banner" id="next-card"></div><div id="v3-featured"></div>
       <div class="stories" id="stories" role="group" aria-label="Choisir une période"></div>
       <div class="filters" id="filters"></div>
       <div class="searchstrip"><label for="v3-search">Rechercher</label><input id="v3-search" type="search" placeholder="Événement, personnage, mot-clé…" autocomplete="off"></div><div class="feed-title"><span>LES CHRONIQUES DU PASSÉ</span><span id="v3-found-count">51 publications</span></div><div id="feed"></div>
     </section>
+    <section id="v-atlas" hidden><div class="pagearea" id="atlas"></div></section>
     <section id="v-frise" hidden><div class="pagearea" id="frise"></div></section>
     <section id="v-dossiers" hidden><div class="pagearea" id="dossiers"></div></section>
     <section id="v-defis" hidden><div class="pagearea" id="defis"></div></section>
@@ -622,11 +648,13 @@ function setView(v){
   for (var i = 0; i < nb.length; i++){ if (nb[i].getAttribute('data-v') === v) nb[i].setAttribute('aria-current', 'page'); else nb[i].removeAttribute('aria-current'); }
   $('v-fil').hidden = !(v === 'fil' || v === 'todo');
   $('v-frise').hidden = v !== 'frise';
+  $('v-atlas').hidden = v !== 'atlas';
   $('v-defis').hidden = v !== 'defis';
   $('v-dossiers').hidden = v !== 'dossiers';
   $('v-carnet').hidden = v !== 'carnet';
   if (v === 'carnet') renderCarnet();
   else if (v === 'frise') renderFrise();
+  else if (v === 'atlas') renderAtlas();
   else if (v === 'defis') renderDefis();
   else if (v === 'dossiers') renderDossiers();
   else { renderStories(); renderFeed(); }
@@ -976,6 +1004,27 @@ function caseCarnetHTML(){
 var originalExtraCarnetHTML=extraCarnetHTML;
 extraCarnetHTML=function(){return originalExtraCarnetHTML()+caseCarnetHTML();};
 function v3GoToPost(pid){var p=byId(pid);if(!p)return;S.prefs.levels=LEVELS.slice();S.prefs.period='all';save();open[pid]=true;setView('fil');var el=$('post-'+pid);if(el){rerenderPost(pid);el=$('post-'+pid);el.scrollIntoView({behavior:'smooth',block:'start'});}}
+
+
+/* === Galerie illustrée : 51 récits, classements par niveau, accès direct === */
+var atlasLevel='all';
+function renderAtlas(){
+ var list=POSTS.filter(function(p){return atlasLevel==='all'||p.n===atlasLevel;});
+ var h='<div class="atlas-intro"><button type="button" class="atlas-back" data-v="fil">← Retour au fil</button>';
+ h+='<div class="page-banner"><div class="section-kicker" style="color:#d1ccff">VOYAGE DANS LE TEMPS</div>';
+ h+='<h2 class="page-title">La galerie des 51 histoires</h2><p class="page-desc">Explore les couvertures, choisis une époque et ouvre son enquête. Les scènes sont des reconstitutions artistiques, pas des documents d’archives.</p></div>';
+ h+='<div class="atlas-poster"><img src="assets/galerie/fresque-du-temps.webp" loading="lazy" alt="Panorama artistique des grandes périodes historiques" onerror="this.parentNode.hidden=true"><small>Fresque d’inspiration historique générée à des fins pédagogiques : les thèmes représentés ne correspondent pas toujours aux 51 publications. Pour une enquête précise, utilise les cartes ci-dessous.</small></div>';
+ h+='</div><div class="atlas-filters" role="group" aria-label="Choisir le niveau">';
+ [['all','Toutes'],['6','6e'],['5','5e'],['4','4e'],['3','3e']].forEach(function(f){h+='<button class="atlas-chip" type="button" data-atlas-level="'+f[0]+'" aria-pressed="'+(atlasLevel===f[0])+'">'+f[1]+'</button>';});
+ h+='<span class="atlas-count">'+list.length+' histoires</span></div><div class="atlas-grid">';
+ list.forEach(function(p){h+='<button class="atlas-card" type="button" data-atlas-open="'+esc(p.id)+'" aria-label="Ouvrir : '+esc(p.m)+'"><img class="atlas-art" src="assets/posts/'+esc(p.id)+'.webp" loading="lazy" alt="Illustration artistique pour '+esc(p.m)+'"><span class="atlas-info"><span class="atlas-grade">'+esc(p.n)+'e · '+esc(p.date)+'</span><strong class="atlas-title">'+esc(p.m)+'</strong><span class="atlas-meta">'+esc(p.lieu)+'</span><span class="atlas-action">Ouvrir l’histoire ↗</span></span></button>';});
+ h+='</div>';
+ $('atlas').innerHTML=h;
+}
+document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('button');if(!b)return;
+ if(b.hasAttribute('data-atlas-level')){atlasLevel=b.getAttribute('data-atlas-level');renderAtlas();return;}
+ if(b.hasAttribute('data-atlas-open')){v3GoToPost(b.getAttribute('data-atlas-open'));return;}
+});
 
 document.addEventListener('input',function(ev){if(ev.target&&ev.target.id==='v3-search'){searchText=(ev.target.value||'').trim().toLowerCase();renderFeed();}});
 document.addEventListener('click',function(ev){
