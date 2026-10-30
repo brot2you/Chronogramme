@@ -1013,8 +1013,7 @@ function renderAtlas(){
  var h='<div class="atlas-intro"><button type="button" class="atlas-back" data-v="fil">← Retour au fil</button>';
  h+='<div class="page-banner"><div class="section-kicker" style="color:#d1ccff">VOYAGE DANS LE TEMPS</div>';
  h+='<h2 class="page-title">La galerie des 51 histoires</h2><p class="page-desc">Explore les couvertures, choisis une époque et ouvre son enquête. Les scènes sont des reconstitutions artistiques, pas des documents d’archives.</p></div>';
- h+='<div class="atlas-poster"><img src="assets/galerie/fresque-du-temps.webp" loading="lazy" alt="Panorama artistique des grandes périodes historiques" onerror="this.parentNode.hidden=true"><small>Fresque d’inspiration historique générée à des fins pédagogiques : les thèmes représentés ne correspondent pas toujours aux 51 publications. Pour une enquête précise, utilise les cartes ci-dessous.</small></div>';
- h+='</div><div class="atlas-filters" role="group" aria-label="Choisir le niveau">';
+h+='</div><div class="atlas-filters" role="group" aria-label="Choisir le niveau">';
  [['all','Toutes'],['6','6e'],['5','5e'],['4','4e'],['3','3e']].forEach(function(f){h+='<button class="atlas-chip" type="button" data-atlas-level="'+f[0]+'" aria-pressed="'+(atlasLevel===f[0])+'">'+f[1]+'</button>';});
  h+='<span class="atlas-count">'+list.length+' histoires</span></div><div class="atlas-grid">';
  list.forEach(function(p){h+='<button class="atlas-card" type="button" data-atlas-open="'+esc(p.id)+'" aria-label="Ouvrir : '+esc(p.m)+'"><img class="atlas-art" src="assets/posts/'+esc(p.id)+'.webp" loading="lazy" alt="Illustration artistique pour '+esc(p.m)+'"><span class="atlas-info"><span class="atlas-grade">'+esc(p.n)+'e · '+esc(p.date)+'</span><strong class="atlas-title">'+esc(p.m)+'</strong><span class="atlas-meta">'+esc(p.lieu)+'</span><span class="atlas-action">Ouvrir l’histoire ↗</span></span></button>';});
