@@ -320,7 +320,17 @@ button{font:inherit;color:inherit}
 @media(max-width:540px){.epoch-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px}.epoch-title{font-size:.85rem;padding:28px 6px 11px}.epoch-heading{padding:16px}.epoch-heading h2{font-size:1.2rem}}
 @media(prefers-reduced-motion:reduce){.epoch-item{transition:none}}
 </style>
-</head>
+<style id="remove-svg-derived-art-v67">
+/* Les visuels vectoriels convertis en WebP ont été retirés. Emplacements volontairement vides. */
+.epoch-regular .epoch-cover{background:#f5f0e7!important;min-height:185px}
+.epoch-regular .epoch-cover img{display:none!important}
+.atlas-card .atlas-art{display:none!important}
+.atlas-card .atlas-art-empty{display:block!important;height:110px;background:#f5f0e7!important}
+.dossier-img,.v3-feature-art{visibility:hidden!important}
+.media{background-image:none!important}
+.dossier-art{background-image:none!important}
+.case-cover{background-image:none!important}
+</style></head>
 <body>
 <div class="col">
   <header class="top">
@@ -357,7 +367,7 @@ button{font:inherit;color:inherit}
 <script>
 const HISTORY_CARD_NAMES=['la_prehistoire', 'les_premiers_paysans', 'les_premieres_villes', 'legypte_ancienne', 'la_mesopotamie', 'la_grece_antique', 'rome_de_la_republique_a_lempire', 'les_religions_anciennes', 'les_echanges_en_mediterranee', 'gaulois_et_romains', 'la_vie_quotidienne_dans_lantiquite', 'les_heritages_de_lantiquite'];
 function historyArt(p){const n=Number(String(p.id).replace(/^p/,''));return n>=1&&n<=12?'assets/histoires/'+String(n).padStart(2,'0')+'_'+HISTORY_CARD_NAMES[n-1]+(n<=2?'.webp':'.png'):null;}
-function historyArtOrDefault(p){return historyArt(p)||'assets/posts/'+p.id+'.webp';}
+function historyArtOrDefault(p){return historyArt(p)||'';}
 
 (function(){
 'use strict';
@@ -465,7 +475,7 @@ function postHTML(p){
   var hidden = p.hide && !sol;
   var h = '<article class="post' + (p.grave ? ' grave' : '') + '" id="post-' + p.id + '" style="--pc:var(--p-' + p.p + ');--pt:var(--t-' + p.p + ')">';
   h += '<div class="ph"><span class="av" aria-hidden="true">' + esc(p.av) + '</span><div class="ph-t"><b>' + esc(p.who) + '</b><span>' + esc(p.lieu) + ', ' + (hidden ? '<span class="lock">date à trouver</span>' : esc(p.date).replace(/(\d) (\d)/g, '$1\u202F$2')) + '</span></div><span class="mtag">' + T.e + ' ' + T.tag + '</span></div>';
-  h += '<div class="media" style="background-image:url(' + 'assets/posts/'+p.id+'.webp' + ')"><span class="cover-index">ARCHIVE N° ' + esc(p.id.substring(1).padStart(2,'0')) + '</span><span class="ml">' + p.n + 'e · ' + esc(p.ch) + '</span><h2>' + esc(p.m) + '</h2><span class="cover-note">Visuel d’ambiance · reconstitution artistique</span>' + (sol ? stampHTML(sol, p) : '') + '</div>';
+  h += '<div class="media" style="background-image:url(' + '' + ')"><span class="cover-index">ARCHIVE N° ' + esc(p.id.substring(1).padStart(2,'0')) + '</span><span class="ml">' + p.n + 'e · ' + esc(p.ch) + '</span><h2>' + esc(p.m) + '</h2><span class="cover-note">Visuel d’ambiance · reconstitution artistique</span>' + (sol ? stampHTML(sol, p) : '') + '</div>';
   h += '<div class="acts">';
   if (!p.grave) h += '<button type="button" class="ib like" data-like="' + p.id + '" aria-pressed="' + liked + '" aria-label="J’aime">' + IC.heart + '<span>' + fmtN(seedLikes(p.id) + (liked ? 1 : 0)) + '</span></button>';
   else h += '<span class="ib" style="font-weight:700;color:var(--ink-soft)">Publication de mémoire</span>';
@@ -944,7 +954,7 @@ function renderFeaturedCase(){
  var el=$('v3-featured');if(!el)return;
  var c=DOSSIERS.find(function(x){return !caseState(x.id).completed;})||DOSSIERS[0];
  var all=countCases();
- el.innerHTML='<div class="v3-feature"><div class="v3-feature-art" style="background-image:url(assets/illustrations/'+c.id+'.webp)"></div><div class="v3-feature-copy"><span class="mini-eyebrow">LE CABINET DES ARCHIVES</span><strong>'+esc(c.title)+'</strong><p>'+esc(c.tagline)+'</p><div class="v3-feature-footer"><span>'+all+' / '+DOSSIERS.length+' dossiers résolus</span><button type="button" data-c-open="'+c.id+'">'+(caseState(c.id).completed?'Revoir le dossier':'Ouvrir le dossier')+' ↗</button></div></div></div>';
+ el.innerHTML='<div class="v3-feature"><div class="v3-feature-art" style="background-image:url()"></div><div class="v3-feature-copy"><span class="mini-eyebrow">LE CABINET DES ARCHIVES</span><strong>'+esc(c.title)+'</strong><p>'+esc(c.tagline)+'</p><div class="v3-feature-footer"><span>'+all+' / '+DOSSIERS.length+' dossiers résolus</span><button type="button" data-c-open="'+c.id+'">'+(caseState(c.id).completed?'Revoir le dossier':'Ouvrir le dossier')+' ↗</button></div></div></div>';
 }
 function renderDossiers(preserve){
  var el=$('dossiers');if(!el)return;
@@ -961,7 +971,7 @@ function renderDossierHome(){
  h+=gradeButton('Tous','all',DS.level,'data-c-level');for(var i=0;i<LEVELS.length;i++)h+=gradeButton(LEVELS[i]+'e',LEVELS[i],DS.level,'data-c-level');h+='</div>';
  h+='<div class="dossier-list">';
  DOSSIERS.forEach(function(c){if(DS.level!=='all'&&c.grade!==DS.level)return;var st=caseState(c.id);
- h+='<button class="dossier-card" type="button" data-c-open="'+c.id+'" aria-label="Ouvrir '+esc(c.title)+'"><span class="dossier-art"><img class="dossier-img" src="assets/illustrations/'+c.id+'.webp" alt="" loading="lazy"><span class="dossier-num">'+esc(c.code)+'</span><span class="dossier-grade">'+c.grade+'e · '+esc(c.label)+'</span></span><span class="dossier-body"><span class="case-year">'+esc(c.year)+' · '+esc(c.skill)+'</span><strong>'+esc(c.title)+'</strong><span class="case-copy">'+esc(c.tagline)+'</span><span class="case-progress">'+caseBadge(c)+'</span><span class="case-track"><i style="width:'+Math.max(0,Math.min(100,(st.step||0)*100/3))+'%"></i></span></span></button>';
+ h+='<button class="dossier-card" type="button" data-c-open="'+c.id+'" aria-label="Ouvrir '+esc(c.title)+'"><span class="dossier-art"><img class="dossier-img" src="" alt="" loading="lazy"><span class="dossier-num">'+esc(c.code)+'</span><span class="dossier-grade">'+c.grade+'e · '+esc(c.label)+'</span></span><span class="dossier-body"><span class="case-year">'+esc(c.year)+' · '+esc(c.skill)+'</span><strong>'+esc(c.title)+'</strong><span class="case-copy">'+esc(c.tagline)+'</span><span class="case-progress">'+caseBadge(c)+'</span><span class="case-track"><i style="width:'+Math.max(0,Math.min(100,(st.step||0)*100/3))+'%"></i></span></span></button>';
  });
  h+='</div><p class="disclaimer">Tous les textes d’archives proposés dans ce cabinet sont des reconstitutions pédagogiques ou des descriptions de documents, et non des citations de documents originaux. Les illustrations sont des créations d’ambiance, pas des photographies d’objets historiques.</p>';
  return h;
@@ -978,7 +988,7 @@ function caseEvidence(c){
 function renderDossierDetails(c){
  var st=caseState(c.id),step=Math.max(0,Math.min(3,st.step));
  var h='<button type="button" class="back-cases" data-c-back>← Tous les dossiers</button>';
- h+='<div class="case-cover" style="background-image:url(assets/illustrations/'+c.id+'.webp)"><span class="code">'+esc(c.code)+' · '+c.grade+'e · '+esc(c.year)+'</span><h2>'+esc(c.title)+'</h2><p>'+esc(c.tagline)+'</p></div>';
+ h+='<div class="case-cover" style="background-image:url()"><span class="code">'+esc(c.code)+' · '+c.grade+'e · '+esc(c.year)+'</span><h2>'+esc(c.title)+'</h2><p>'+esc(c.tagline)+'</p></div>';
  h+='<div class="case-intro"><strong>Méthode de l’historien :</strong> observer des traces, vérifier leur contexte, confronter les points de vue, puis justifier une réponse. Les documents affichés ici ne sont pas des archives authentiques : ce sont des reconstitutions conçues pour apprendre.</div>';
  h+='<div class="phase-steps" aria-label="Progression des trois étapes">';
  ['Observer','Croiser','Conclure'].forEach(function(x,i){h+='<div class="phase-step '+(i<step?'done':(i===step?'active':''))+'"><span>'+(i<step?'✓':i+1)+'</span>'+x+'</div>';});h+='</div>';
@@ -1050,8 +1060,8 @@ var atlasTheme=null;
 var ATLAS_THEMES=[{"level": "6", "title": "La Préhistoire", "image": "01_la_prehistoire.webp", "ids": ["p1"]}, {"level": "6", "title": "Les premiers paysans", "image": "02_les_premiers_paysans.webp", "ids": []}, {"level": "6", "title": "Les premières villes", "image": "03_les_premieres_villes.png", "ids": ["p2"]}, {"level": "6", "title": "L’Égypte ancienne", "image": "04_legypte_ancienne.png", "ids": ["p3"]}, {"level": "6", "title": "La Mésopotamie", "image": "05_la_mesopotamie.png", "ids": []}, {"level": "6", "title": "La Grèce antique", "image": "06_la_grece_antique.png", "ids": ["p4", "p5"]}, {"level": "6", "title": "Rome, de la République à l’Empire", "image": "07_rome_de_la_republique_a_lempire.png", "ids": ["p7", "p8", "p35"]}, {"level": "6", "title": "Les religions anciennes", "image": "08_les_religions_anciennes.png", "ids": ["p36", "p38"]}, {"level": "6", "title": "Les échanges en Méditerranée", "image": "09_les_echanges_en_mediterranee.png", "ids": ["p37"]}, {"level": "6", "title": "Gaulois et Romains", "image": "10_gaulois_et_romains.png", "ids": ["p6"]}, {"level": "6", "title": "La vie quotidienne dans l’Antiquité", "image": "11_la_vie_quotidienne_dans_lantiquite.png", "ids": []}, {"level": "6", "title": "Les héritages de l’Antiquité", "image": "12_les_heritages_de_lantiquite.png", "ids": []}, {"level": "5", "title": "Empires et civilisations médiévales", "image": null, "ids": ["p9", "p10", "p39"]}, {"level": "5", "title": "Seigneurs, paysans et chevaliers", "image": null, "ids": ["p12", "p41"]}, {"level": "5", "title": "Églises, cathédrales et savoirs", "image": null, "ids": ["p11", "p40"]}, {"level": "5", "title": "Conflits et bouleversements", "image": null, "ids": ["p13", "p14", "p15"]}, {"level": "5", "title": "Renaissance et grandes découvertes", "image": null, "ids": ["p16", "p42"]}, {"level": "5", "title": "La monarchie absolue", "image": null, "ids": ["p17"]}, {"level": "4", "title": "Les Lumières et leurs idées", "image": null, "ids": ["p43"]}, {"level": "4", "title": "La Révolution française", "image": null, "ids": ["p18", "p19", "p20", "p21"]}, {"level": "4", "title": "Napoléon et les transformations politiques", "image": null, "ids": ["p22", "p23"]}, {"level": "4", "title": "Industrialisation et société", "image": null, "ids": ["p24", "p44"]}, {"level": "4", "title": "École, République et colonisation", "image": null, "ids": ["p25", "p26"]}, {"level": "3", "title": "La Première Guerre mondiale", "image": null, "ids": ["p27"]}, {"level": "3", "title": "Crises et totalitarismes", "image": null, "ids": ["p28", "p29"]}, {"level": "3", "title": "La Seconde Guerre mondiale", "image": null, "ids": ["p30", "p31", "p45"]}, {"level": "3", "title": "La guerre froide", "image": null, "ids": ["p32", "p34"]}, {"level": "3", "title": "Décolonisation et construction européenne", "image": null, "ids": ["p47", "p48"]}, {"level": "3", "title": "La société française depuis 1945", "image": null, "ids": ["p33", "p46", "p50", "p51"]}, {"level": "3", "title": "Le monde contemporain", "image": null, "ids": ["p49"]}];
 function atlasThemeImage(t){
  if(t.image&&(t.image==='01_la_prehistoire.webp'||t.image==='02_les_premiers_paysans.webp'))return 'assets/histoires/'+t.image;
- if(t.ids.length)return 'assets/posts/'+t.ids[0]+'.webp';
- return 'assets/posts/p1.webp';
+ if(t.ids.length)return '';
+ return '';
 }
 function renderAtlas(){
  var h='<div class="atlas-intro"><button type="button" class="atlas-back" data-v="fil">← Retour au fil</button>';
@@ -1067,13 +1077,13 @@ function renderAtlas(){
   h+='<div class="theme-nav"><button type="button" data-theme-back="1">← Retour aux époques</button><span class="theme-crumb">'+esc(atlasLevel)+'e / '+esc(theme.title)+'</span></div>';
   h+='<div class="library-story-heading"><span>ÉTAPE 2 · HISTOIRES ET PERSONNAGES</span><h2>Les histoires de '+esc(theme.title)+'</h2><p>Choisis un personnage pour lire son récit et mener l’enquête.</p></div>';
   if(!posts.length){h+='<div class="theme-empty">Les histoires de ce thème seront ajoutées prochainement. Tu peux déjà découvrir sa carte historique.</div>';}
-  else {h+='<div class="atlas-grid">';posts.forEach(function(p){h+='<button class="atlas-card" type="button" data-atlas-open="'+esc(p.id)+'" aria-label="Ouvrir : '+esc(p.m)+'"><img class="atlas-art" src="assets/posts/'+esc(p.id)+'.webp" loading="lazy" alt="Illustration artistique pour '+esc(p.m)+'"><span class="atlas-info"><span class="atlas-grade">HISTOIRE · '+esc(p.who)+' · '+esc(p.date)+'</span><strong class="atlas-title">'+esc(p.m)+'</strong><span class="atlas-meta">'+esc(p.lieu)+'</span><span class="atlas-action">Lire l’histoire et enquêter →</span></span></button>';});h+='</div>';}
+  else {h+='<div class="atlas-grid">';posts.forEach(function(p){h+='<button class="atlas-card" type="button" data-atlas-open="'+esc(p.id)+'" aria-label="Ouvrir : '+esc(p.m)+'"><span class="atlas-art atlas-art-empty" aria-hidden="true"></span><span class="atlas-info"><span class="atlas-grade">HISTOIRE · '+esc(p.who)+' · '+esc(p.date)+'</span><strong class="atlas-title">'+esc(p.m)+'</strong><span class="atlas-meta">'+esc(p.lieu)+'</span><span class="atlas-action">Lire l’histoire et enquêter →</span></span></button>';});h+='</div>';}
  }else{
   h+='<div class="epoch-heading"><span class="epoch-eyebrow">NIVEAU 1 · ÉPOQUES</span><h2>Choisis une époque</h2><p>Touche une couverture pour découvrir les histoires de cette période.</p></div><div class="epoch-gallery">';
   themes.forEach(function(t,i){
    var premium=(t.image==='01_la_prehistoire.webp'||t.image==='02_les_premiers_paysans.webp');
    h+='<button type="button" class="epoch-item '+(premium?'epoch-premium':'epoch-regular')+'" data-theme-open="'+i+'" aria-label="Explorer '+esc(t.title)+'">';
-   h+='<span class="epoch-cover"><img src="'+atlasThemeImage(t)+'" loading="lazy" alt="'+esc(t.title)+'" onerror="this.onerror=null;this.src=\'assets/illustrations/egypt.webp\'">';
+   h+='<span class="epoch-cover">'+(premium?'<img src="'+atlasThemeImage(t)+'" loading="lazy" alt="'+esc(t.title)+'">':'');
    if(!premium)h+='<span class="epoch-title">'+esc(t.title)+'</span>';
    h+='</span><span class="epoch-count">'+(t.ids.length?t.ids.length+' histoire'+(t.ids.length>1?'s':''):'À découvrir')+' <span aria-hidden="true">›</span></span></button>';
   });
