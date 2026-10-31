@@ -1050,7 +1050,7 @@ function renderAtlas(){
   else {h+='<div class="atlas-grid">';posts.forEach(function(p){h+='<button class="atlas-card" type="button" data-atlas-open="'+esc(p.id)+'" aria-label="Ouvrir : '+esc(p.m)+'"><img class="atlas-art" src="assets/posts/'+esc(p.id)+'.webp" loading="lazy" alt="Illustration artistique pour '+esc(p.m)+'"><span class="atlas-info"><span class="atlas-grade">'+esc(p.n)+'e · '+esc(p.date)+'</span><strong class="atlas-title">'+esc(p.m)+'</strong><span class="atlas-meta">'+esc(p.lieu)+'</span><span class="atlas-action">Ouvrir l’histoire ↗</span></span></button>';});h+='</div>';}
  }else{
   h+='<h2 class="theme-story-head">Les grands thèmes de '+esc(atlasLevel)+'e</h2><div class="theme-grid">';
-  themes.forEach(function(t,i){h+='<button type="button" class="theme-tile" data-theme-open="'+i+'" aria-label="Explorer : '+esc(t.title)+'"><img src="'+atlasThemeImage(t)+'" loading="lazy" alt="Illustration du thème '+esc(t.title)+'" onerror="this.onerror=null;this.src='assets/posts/p1.webp'"><span class="theme-label">'+esc(t.title)+'</span><span class="theme-count">'+(t.ids.length?t.ids.length+' histoire'+(t.ids.length>1?'s':''):'À découvrir')+'</span></button>';});
+  themes.forEach(function(t,i){h+='<button type="button" class="theme-tile" data-theme-open="'+i+'" aria-label="Explorer : '+esc(t.title)+'"><img src="'+atlasThemeImage(t)+'" loading="lazy" alt="Illustration du thème '+esc(t.title)+'"><span class="theme-label">'+esc(t.title)+'</span><span class="theme-count">'+(t.ids.length?t.ids.length+' histoire'+(t.ids.length>1?'s':''):'À découvrir')+'</span></button>';});
   h+='</div>';
  }
  $('atlas').innerHTML=h;
