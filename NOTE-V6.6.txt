@@ -1,0 +1,1 @@
+V6.6 : nouvelle illustration accueil sans texte ; SVG inline retires (icones laissees vides) ; aucun autre contenu supprime.

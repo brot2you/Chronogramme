@@ -184,3 +184,8 @@
 .v3-home-hero::before{background:linear-gradient(90deg,rgba(9,24,43,.58) 0%,rgba(9,24,43,.38) 27%,rgba(9,24,43,.13) 52%,rgba(9,24,43,0) 76%)!important;}
 .v3-home-hero h2,.v3-home-hero .mini-eyebrow,.v3-home-hero p,.v3-home-hero .hero-counter{text-shadow:0 2px 9px rgba(4,13,26,.8),0 1px 3px rgba(4,13,26,.7);}
 @media(max-width:700px){.v3-home-hero::before{background:linear-gradient(90deg,rgba(9,24,43,.76) 0%,rgba(9,24,43,.50) 54%,rgba(9,24,43,.20) 100%)!important;}}
+
+/* V6.6 — illustration sans texte, sans déformation, voile discret */
+.v3-home-hero{background-image:url('illustrations/accueil-sans-texte.webp')!important;background-size:cover!important;background-position:center 46%!important;min-height:440px}
+.v3-home-hero::before{background:linear-gradient(90deg,rgba(9,24,43,.48) 0%,rgba(9,24,43,.22) 36%,rgba(9,24,43,.03) 72%,transparent 100%)!important}
+@media(max-width:700px){.v3-home-hero{background-position:36% center!important;min-height:400px}.v3-home-hero::before{background:linear-gradient(90deg,rgba(9,24,43,.64) 0%,rgba(9,24,43,.34) 60%,rgba(9,24,43,.12) 100%)!important}}
