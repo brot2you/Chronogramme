@@ -329,13 +329,13 @@ button{font:inherit;color:inherit}
 .epoch-regular .epoch-cover img{display:none!important}
 .atlas-card .atlas-art{display:none!important}
 .atlas-card .atlas-art-empty{display:block!important;height:110px;background:#f5f0e7!important}
-.dossier-img,.v3-feature-art{visibility:hidden!important}
+.v3-feature-art{visibility:hidden!important}
 /* Illustrations des récits : élément image indépendant des fonds CSS. */
 .media .story-cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0}
 .media:has(.story-cover-img)::before{background:linear-gradient(180deg,rgba(12,25,43,.05),rgba(12,25,43,.85));z-index:1;pointer-events:none}
 .media:has(.story-cover-img)>:not(.story-cover-img){z-index:2}
 .dossier-art{background-image:none!important}
-.case-cover{background-image:none!important}
+.case-cover{background-image:linear-gradient(180deg,rgba(12,26,44,.2),rgba(12,26,44,.86)),var(--fallback,none)}
 <style id="archive-image-visibility-fix">
 /* Images d'archives : priorite explicite sur les anciens styles. */
 .post .media{isolation:isolate;background:#1c3046}
@@ -343,7 +343,7 @@ button{font:inherit;color:inherit}
 .post .media:has(img.story-cover-img)::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(9,20,34,.04) 10%,rgba(9,20,34,.12) 42%,rgba(9,20,34,.86) 100%)!important;pointer-events:none}
 .post .media:has(img.story-cover-img)>:not(img.story-cover-img){position:relative;z-index:2}
 .post .media .cover-index{position:absolute!important;z-index:3!important}
-</style></head>
+</style><style id="dossier-image-restoration">.dossier-art{position:relative;overflow:hidden}.dossier-art img.dossier-img{position:absolute!important;inset:0;width:100%!important;height:100%!important;display:block!important;visibility:visible!important;opacity:1!important;object-fit:cover!important;z-index:0}.dossier-art::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(10,24,42,.05),rgba(10,24,42,.12) 45%,rgba(10,24,42,.72))}.dossier-art .dossier-num,.dossier-art .dossier-grade{position:relative;z-index:2}.case-cover{background-size:cover!important;background-position:center!important}</style></head>
 <body>
 <div class="col">
   <header class="top">
@@ -987,7 +987,7 @@ function renderDossierHome(){
  h+=gradeButton('Tous','all',DS.level,'data-c-level');for(var i=0;i<LEVELS.length;i++)h+=gradeButton(LEVELS[i]+'e',LEVELS[i],DS.level,'data-c-level');h+='</div>';
  h+='<div class="dossier-list">';
  DOSSIERS.forEach(function(c){if(DS.level!=='all'&&c.grade!==DS.level)return;var st=caseState(c.id);
- h+='<button class="dossier-card" type="button" data-c-open="'+c.id+'" aria-label="Ouvrir '+esc(c.title)+'"><span class="dossier-art"><img class="dossier-img" src="" alt="" loading="lazy"><span class="dossier-num">'+esc(c.code)+'</span><span class="dossier-grade">'+c.grade+'e · '+esc(c.label)+'</span></span><span class="dossier-body"><span class="case-year">'+esc(c.year)+' · '+esc(c.skill)+'</span><strong>'+esc(c.title)+'</strong><span class="case-copy">'+esc(c.tagline)+'</span><span class="case-progress">'+caseBadge(c)+'</span><span class="case-track"><i style="width:'+Math.max(0,Math.min(100,(st.step||0)*100/3))+'%"></i></span></span></button>';
+ h+='<button class="dossier-card" type="button" data-c-open="'+c.id+'" aria-label="Ouvrir '+esc(c.title)+'"><span class="dossier-art"><img class="dossier-img" src="assets/histoires/'+dossierImage(c)+'" alt="" loading="lazy" decoding="async"><span class="dossier-num">'+esc(c.code)+'</span><span class="dossier-grade">'+c.grade+'e · '+esc(c.label)+'</span></span><span class="dossier-body"><span class="case-year">'+esc(c.year)+' · '+esc(c.skill)+'</span><strong>'+esc(c.title)+'</strong><span class="case-copy">'+esc(c.tagline)+'</span><span class="case-progress">'+caseBadge(c)+'</span><span class="case-track"><i style="width:'+Math.max(0,Math.min(100,(st.step||0)*100/3))+'%"></i></span></span></button>';
  });
  h+='</div><p class="disclaimer">Tous les textes d’archives proposés dans ce cabinet sont des reconstitutions pédagogiques ou des descriptions de documents, et non des citations de documents originaux. Les illustrations sont des créations d’ambiance, pas des photographies d’objets historiques.</p>';
  return h;
@@ -1001,10 +1001,11 @@ function caseEvidence(c){
  h+='</div><p class="disclaimer">Ces documents sont des supports d’étude reconstitués. Pour argumenter, confronte au moins deux indices.</p>';
  return h;
 }
+function dossierImage(c){return ({lascaux:'p1_grotte.webp',uruk:'p2_orge_temple.webp',bagdad:'p9_maison_sagesse.webp',cite:'p12_moulin.webp','1492':'p42_scribe_azteque.webp','1789':'p18_bastille.webp',verdun:'p27_tranchees.webp',berlin:'p34_mur_berlin.webp'})[c.id]||'';}
 function renderDossierDetails(c){
  var st=caseState(c.id),step=Math.max(0,Math.min(3,st.step));
  var h='<button type="button" class="back-cases" data-c-back>← Tous les dossiers</button>';
- h+='<div class="case-cover" style="background-image:url()"><span class="code">'+esc(c.code)+' · '+c.grade+'e · '+esc(c.year)+'</span><h2>'+esc(c.title)+'</h2><p>'+esc(c.tagline)+'</p></div>';
+ h+='<div class="case-cover" style="background-image:linear-gradient(180deg,rgba(12,26,44,.2),rgba(12,26,44,.86)),url(assets/histoires/'+dossierImage(c)+')"><span class="code">'+esc(c.code)+' · '+c.grade+'e · '+esc(c.year)+'</span><h2>'+esc(c.title)+'</h2><p>'+esc(c.tagline)+'</p></div>';
  h+='<div class="case-intro"><strong>Méthode de l’historien :</strong> observer des traces, vérifier leur contexte, confronter les points de vue, puis justifier une réponse. Les documents affichés ici ne sont pas des archives authentiques : ce sont des reconstitutions conçues pour apprendre.</div>';
  h+='<div class="phase-steps" aria-label="Progression des trois étapes">';
  ['Observer','Croiser','Conclure'].forEach(function(x,i){h+='<div class="phase-step '+(i<step?'done':(i===step?'active':''))+'"><span>'+(i<step?'✓':i+1)+'</span>'+x+'</div>';});h+='</div>';
