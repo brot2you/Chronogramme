@@ -174,3 +174,8 @@
 .v3-home-hero::before{background:linear-gradient(90deg,rgba(12,28,47,.98) 0%,rgba(12,28,47,.96) 28%,rgba(12,28,47,.82) 49%,rgba(12,28,47,.18) 78%,rgba(12,28,47,.02) 100%)}
 .brand::before{content:''!important;background:#f3e4c5 url('icon-premium.png') center/cover no-repeat!important;border-radius:11px!important;box-shadow:0 2px 8px rgba(17,28,44,.18)}
 @media(max-width:700px){.v3-home-hero{background-position:62% center;min-height:350px}.v3-home-hero::before{background:linear-gradient(90deg,rgba(12,28,47,.97),rgba(12,28,47,.85) 68%,rgba(12,28,47,.48))}}
+
+/* V6.1: preserve artwork framing */
+.v3-home-hero{background-position:center center;background-size:100% 100%;min-height:440px}
+.v3-home-hero::before{background:linear-gradient(90deg,rgba(12,28,47,.48),transparent 65%)}
+@media(max-width:700px){.v3-home-hero{background-size:auto 100%;background-position:64% center;min-height:410px}.v3-home-hero::before{background:linear-gradient(90deg,rgba(12,28,47,.96),rgba(12,28,47,.88) 65%,rgba(12,28,47,.40))}}
