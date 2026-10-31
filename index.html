@@ -284,7 +284,21 @@ button{font:inherit;color:inherit}
 @media(min-width:850px){.atlas-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}}
 @media(max-width:390px){.atlas-grid{gap:9px}.atlas-info{padding:9px}.atlas-title{font-size:.82rem}.atlas-meta{font-size:.69rem}}
 
-.history-theme{margin:18px 0 25px}.history-theme h2{margin:0 0 6px}.history-theme p{margin:0 0 12px}.history-theme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:14px}.history-theme-grid figure{margin:0;background:#24150b;border-radius:12px;padding:7px;color:#fff;text-align:center}.history-theme-grid img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:contain}.history-theme-grid figcaption{padding:8px 3px;font-size:.85rem}</style>
+.history-theme{margin:18px 0 25px}.history-theme h2{margin:0 0 6px}.history-theme p{margin:0 0 12px}.history-theme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:14px}.history-theme-grid figure{margin:0;background:#24150b;border-radius:12px;padding:7px;color:#fff;text-align:center}.history-theme-grid img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:contain}.history-theme-grid figcaption{padding:8px 3px;font-size:.85rem}
+/* CHRONOGRAMME V4 : galerie à deux niveaux */
+.theme-nav{display:flex;align-items:center;gap:12px;margin:14px 0 22px;flex-wrap:wrap}
+.theme-nav button{border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);padding:10px 15px;font-weight:750;cursor:pointer}
+.theme-nav .theme-crumb{font-size:.95rem;color:var(--ink-soft)}
+.theme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px;margin:20px 0 30px}
+.theme-tile{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:var(--surface);box-shadow:0 7px 25px #11152614;cursor:pointer;color:var(--ink);text-align:left;padding:0;display:flex;flex-direction:column}
+.theme-tile img{width:100%;aspect-ratio:2/3;object-fit:contain;background:#24170f;display:block}
+.theme-tile .theme-label{padding:12px 12px 4px;font-size:1rem;font-weight:850;line-height:1.25}
+.theme-tile .theme-count{padding:0 12px 13px;font-size:.82rem;color:var(--ink-soft)}
+.theme-tile:focus-visible,.theme-tile:hover{outline:2px solid #ac7b38;outline-offset:2px}
+.theme-empty{border:1px dashed var(--line);border-radius:14px;padding:22px;color:var(--ink-soft)}
+.theme-story-head{margin:15px 0 20px}
+@media(max-width:540px){.theme-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.theme-tile .theme-label{font-size:.88rem}.theme-tile .theme-count{font-size:.75rem}.atlas-grid{grid-template-columns:1fr}}
+</style>
 <link rel="stylesheet" href="assets/v3.css">
 </head>
 <body>
@@ -1010,28 +1024,41 @@ extraCarnetHTML=function(){return originalExtraCarnetHTML()+caseCarnetHTML();};
 function v3GoToPost(pid){var p=byId(pid);if(!p)return;S.prefs.levels=LEVELS.slice();S.prefs.period='all';save();open[pid]=true;setView('fil');var el=$('post-'+pid);if(el){rerenderPost(pid);el=$('post-'+pid);el.scrollIntoView({behavior:'smooth',block:'start'});}}
 
 
-/* === Galerie illustrée : 51 récits, classements par niveau, accès direct === */
-var atlasLevel='all';
+/* === CHRONOGRAMME V4 : navigation thèmes > récits === */
+var atlasLevel='6';
+var atlasTheme=null;
+var ATLAS_THEMES=[{"level": "6", "title": "La Préhistoire", "image": "01_la_prehistoire.png", "ids": ["p1"]}, {"level": "6", "title": "Les premiers paysans", "image": "02_les_premiers_paysans.png", "ids": []}, {"level": "6", "title": "Les premières villes", "image": "03_les_premieres_villes.png", "ids": ["p2"]}, {"level": "6", "title": "L’Égypte ancienne", "image": "04_legypte_ancienne.png", "ids": ["p3"]}, {"level": "6", "title": "La Mésopotamie", "image": "05_la_mesopotamie.png", "ids": []}, {"level": "6", "title": "La Grèce antique", "image": "06_la_grece_antique.png", "ids": ["p4", "p5"]}, {"level": "6", "title": "Rome, de la République à l’Empire", "image": "07_rome_de_la_republique_a_lempire.png", "ids": ["p7", "p8", "p35"]}, {"level": "6", "title": "Les religions anciennes", "image": "08_les_religions_anciennes.png", "ids": ["p36", "p38"]}, {"level": "6", "title": "Les échanges en Méditerranée", "image": "09_les_echanges_en_mediterranee.png", "ids": ["p37"]}, {"level": "6", "title": "Gaulois et Romains", "image": "10_gaulois_et_romains.png", "ids": ["p6"]}, {"level": "6", "title": "La vie quotidienne dans l’Antiquité", "image": "11_la_vie_quotidienne_dans_lantiquite.png", "ids": []}, {"level": "6", "title": "Les héritages de l’Antiquité", "image": "12_les_heritages_de_lantiquite.png", "ids": []}, {"level": "5", "title": "Empires et civilisations médiévales", "image": null, "ids": ["p9", "p10", "p39"]}, {"level": "5", "title": "Seigneurs, paysans et chevaliers", "image": null, "ids": ["p12", "p41"]}, {"level": "5", "title": "Églises, cathédrales et savoirs", "image": null, "ids": ["p11", "p40"]}, {"level": "5", "title": "Conflits et bouleversements", "image": null, "ids": ["p13", "p14", "p15"]}, {"level": "5", "title": "Renaissance et grandes découvertes", "image": null, "ids": ["p16", "p42"]}, {"level": "5", "title": "La monarchie absolue", "image": null, "ids": ["p17"]}, {"level": "4", "title": "Les Lumières et leurs idées", "image": null, "ids": ["p43"]}, {"level": "4", "title": "La Révolution française", "image": null, "ids": ["p18", "p19", "p20", "p21"]}, {"level": "4", "title": "Napoléon et les transformations politiques", "image": null, "ids": ["p22", "p23"]}, {"level": "4", "title": "Industrialisation et société", "image": null, "ids": ["p24", "p44"]}, {"level": "4", "title": "École, République et colonisation", "image": null, "ids": ["p25", "p26"]}, {"level": "3", "title": "La Première Guerre mondiale", "image": null, "ids": ["p27"]}, {"level": "3", "title": "Crises et totalitarismes", "image": null, "ids": ["p28", "p29"]}, {"level": "3", "title": "La Seconde Guerre mondiale", "image": null, "ids": ["p30", "p31", "p45"]}, {"level": "3", "title": "La guerre froide", "image": null, "ids": ["p32", "p34"]}, {"level": "3", "title": "Décolonisation et construction européenne", "image": null, "ids": ["p47", "p48"]}, {"level": "3", "title": "La société française depuis 1945", "image": null, "ids": ["p33", "p46", "p50", "p51"]}, {"level": "3", "title": "Le monde contemporain", "image": null, "ids": ["p49"]}];
+function atlasThemeImage(t){
+ if(t.image)return 'assets/histoires/'+t.image;
+ if(t.ids.length)return 'assets/posts/'+t.ids[0]+'.webp';
+ return 'assets/posts/p1.webp';
+}
 function renderAtlas(){
- var list=POSTS.filter(function(p){return atlasLevel==='all'||p.n===atlasLevel;});
  var h='<div class="atlas-intro"><button type="button" class="atlas-back" data-v="fil">← Retour au fil</button>';
- h+='<div class="page-banner"><div class="section-kicker" style="color:#d1ccff">VOYAGE DANS LE TEMPS</div>';
- h+='<h2 class="page-title">La galerie des 51 histoires</h2><p class="page-desc">Explore les couvertures, choisis une époque et ouvre son enquête. Les scènes sont des reconstitutions artistiques, pas des documents d’archives.</p></div>';
-h+='</div><div class="atlas-filters" role="group" aria-label="Choisir le niveau">';
- [['all','Toutes'],['6','6e'],['5','5e'],['4','4e'],['3','3e']].forEach(function(f){h+='<button class="atlas-chip" type="button" data-atlas-level="'+f[0]+'" aria-pressed="'+(atlasLevel===f[0])+'">'+f[1]+'</button>';});
- h+='<span class="atlas-count">'+list.length+' histoires</span></div>';
-  if(atlasLevel==='all'||atlasLevel==='6'){
-    h+='<section class="history-theme"><h2>Cartes historiques · 6e</h2><p>Collection des grandes périodes de l’histoire</p><div class="history-theme-grid">';
-    [['01_la_prehistoire.png','La Préhistoire'],['02_les_premiers_paysans.png','Les premiers paysans']].forEach(function(c){h+='<figure><img loading="lazy" src="assets/histoires/'+c[0]+'" alt="'+c[1]+'"><figcaption>'+c[1]+'</figcaption></figure>';});
-    h+='</div></section>';
-  }
-  h+='<div class="atlas-grid">';
- list.forEach(function(p){h+='<button class="atlas-card" type="button" data-atlas-open="'+esc(p.id)+'" aria-label="Ouvrir : '+esc(p.m)+'"><img class="atlas-art" src="'+('assets/posts/'+esc(p.id)+'.webp')+'" loading="lazy" alt="Illustration artistique pour '+esc(p.m)+'"><span class="atlas-info"><span class="atlas-grade">'+esc(p.n)+'e · '+esc(p.date)+'</span><strong class="atlas-title">'+esc(p.m)+'</strong><span class="atlas-meta">'+esc(p.lieu)+'</span><span class="atlas-action">Ouvrir l’histoire ↗</span></span></button>';});
+ h+='<div class="page-banner"><div class="section-kicker" style="color:#d1ccff">VOYAGE DANS LE TEMPS</div><h2 class="page-title">La bibliothèque des histoires</h2><p class="page-desc">Choisis un niveau, explore les thèmes historiques, puis découvre les histoires et leurs enquêtes.</p></div></div>';
+ h+='<div class="atlas-filters" role="group" aria-label="Choisir le niveau">';
+ [['6','6e'],['5','5e'],['4','4e'],['3','3e']].forEach(function(f){h+='<button class="atlas-chip" type="button" data-atlas-level="'+f[0]+'" aria-pressed="'+(atlasLevel===f[0])+'">'+f[1]+'</button>';});
  h+='</div>';
+ var themes=ATLAS_THEMES.filter(function(t){return t.level===atlasLevel;});
+ if(atlasTheme!==null){
+  var theme=themes[atlasTheme];
+  if(!theme){atlasTheme=null;return renderAtlas();}
+  var posts=theme.ids.map(function(id){return POSTS.find(function(p){return p.id===id;});}).filter(Boolean);
+  h+='<div class="theme-nav"><button type="button" data-theme-back="1">← Tous les thèmes</button><span class="theme-crumb">'+esc(atlasLevel)+'e / '+esc(theme.title)+'</span></div>';
+  h+='<h2 class="theme-story-head">'+esc(theme.title)+'</h2>';
+  if(!posts.length){h+='<div class="theme-empty">Les histoires de ce thème seront ajoutées prochainement. Tu peux déjà découvrir sa carte historique.</div>';}
+  else {h+='<div class="atlas-grid">';posts.forEach(function(p){h+='<button class="atlas-card" type="button" data-atlas-open="'+esc(p.id)+'" aria-label="Ouvrir : '+esc(p.m)+'"><img class="atlas-art" src="assets/posts/'+esc(p.id)+'.webp" loading="lazy" alt="Illustration artistique pour '+esc(p.m)+'"><span class="atlas-info"><span class="atlas-grade">'+esc(p.n)+'e · '+esc(p.date)+'</span><strong class="atlas-title">'+esc(p.m)+'</strong><span class="atlas-meta">'+esc(p.lieu)+'</span><span class="atlas-action">Ouvrir l’histoire ↗</span></span></button>';});h+='</div>';}
+ }else{
+  h+='<h2 class="theme-story-head">Les grands thèmes de '+esc(atlasLevel)+'e</h2><div class="theme-grid">';
+  themes.forEach(function(t,i){h+='<button type="button" class="theme-tile" data-theme-open="'+i+'" aria-label="Explorer : '+esc(t.title)+'"><img src="'+atlasThemeImage(t)+'" loading="lazy" alt="Illustration du thème '+esc(t.title)+'" onerror="this.onerror=null;this.src='assets/posts/p1.webp'"><span class="theme-label">'+esc(t.title)+'</span><span class="theme-count">'+(t.ids.length?t.ids.length+' histoire'+(t.ids.length>1?'s':''):'À découvrir')+'</span></button>';});
+  h+='</div>';
+ }
  $('atlas').innerHTML=h;
 }
 document.addEventListener('click',function(ev){var b=ev.target.closest&&ev.target.closest('button');if(!b)return;
- if(b.hasAttribute('data-atlas-level')){atlasLevel=b.getAttribute('data-atlas-level');renderAtlas();return;}
+ if(b.hasAttribute('data-atlas-level')){atlasLevel=b.getAttribute('data-atlas-level');atlasTheme=null;renderAtlas();return;}
+ if(b.hasAttribute('data-theme-open')){atlasTheme=Number(b.getAttribute('data-theme-open'));renderAtlas();window.scrollTo(0,0);return;}
+ if(b.hasAttribute('data-theme-back')){atlasTheme=null;renderAtlas();return;}
  if(b.hasAttribute('data-atlas-open')){v3GoToPost(b.getAttribute('data-atlas-open'));return;}
 });
 
