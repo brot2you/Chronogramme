@@ -301,6 +301,7 @@ button{font:inherit;color:inherit}
 .mis-art{display:block;width:100%;height:auto;max-height:290px;object-fit:cover;object-position:center;border-radius:14px;margin:0 0 14px;box-shadow:0 4px 18px rgba(24,35,58,.14)}
 @media(max-width:600px){.mis-art{max-height:190px}}
 </style>
+<style id="chronogramme-period-icons">.story .ring{overflow:hidden;display:flex;align-items:center;justify-content:center}.story .ring img.period-art{display:block;width:100%;height:100%;object-fit:contain;max-width:100%;max-height:100%;border-radius:50%}</style>
 <link rel="stylesheet" href="assets/v3.css">
 
 
@@ -464,7 +465,7 @@ function renderStories(){
     var tot = 0, done = 0;
     for (var j = 0; j < POSTS.length; j++){ if (POSTS[j].p === pr.k){ tot++; if (S.solved[POSTS[j].id]) done++; } }
     if (!tot) continue;
-    h += '<button type="button" class="story' + (done === tot ? ' done' : '') + '" data-per="' + pr.k + '" style="--pc:var(--p-' + pr.k + ');--pt:var(--t-' + pr.k + ')" aria-pressed="' + (P.period === pr.k) + '" aria-label="' + pr.name + ', ' + done + ' enquête' + (done > 1 ? 's' : '') + ' résolue' + (done > 1 ? 's' : '') + ' sur ' + tot + '"><span class="ring"><span aria-hidden="true">' + pr.e + '</span></span><b>' + pr.short + '</b><small>' + done + ' / ' + tot + '</small></button>';
+    h += '<button type="button" class="story' + (done === tot ? ' done' : '') + '" data-per="' + pr.k + '" style="--pc:var(--p-' + pr.k + ');--pt:var(--t-' + pr.k + ')" aria-pressed="' + (P.period === pr.k) + '" aria-label="' + pr.name + ', ' + done + ' enquête' + (done > 1 ? 's' : '') + ' résolue' + (done > 1 ? 's' : '') + ' sur ' + tot + '"><span class="ring"><img class="period-art" src="assets/periodes/' + ({pre:'prehistoire.png',ant:'antiquite.png',moy:'moyen_age.png',mod:'temps_modernes.png',cont:'epoque_contemporaine.png'}[pr.k]) + '" alt="" loading="lazy"></span><b>' + pr.short + '</b><small>' + done + ' / ' + tot + '</small></button>';
   }
   $('stories').innerHTML = h;
   var f = '';
