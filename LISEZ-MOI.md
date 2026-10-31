@@ -15,3 +15,6 @@ Le code de la galerie peut être poussé séparément. La fresque panoramique ne
 
 ## V6.4 - optimisation
 Les illustrations deja presentes dans assets/histoires ont ete converties en WebP pour reduire le poids. Les futures couvertures 03 a 12 peuvent etre ajoutees en PNG comme prevu. Les fichiers du site restent a la racine du ZIP.
+
+
+V6.5 : Galerie des epoques reconstruite sans double cadre. Couvertures premium affichees entieres, autres images en plein cadre, titres uniquement pour les images non premium.

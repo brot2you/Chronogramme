@@ -300,40 +300,25 @@ button{font:inherit;color:inherit}
 @media(max-width:540px){.theme-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.theme-tile .theme-label{font-size:.88rem}.theme-tile .theme-count{font-size:.75rem}.atlas-grid{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="assets/v3.css">
-<style id="library-clarity-v5">
-.theme-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
-.theme-tile{border:2px solid #bb9350;box-shadow:0 9px 23px #0002}
-.theme-tile img{height:245px;aspect-ratio:auto;object-fit:contain}
-.library-era-kicker{font-size:.69rem;font-weight:900;letter-spacing:.09em;color:#996723;padding:12px 12px 0}
-.theme-tile .theme-label{font-size:1.08rem}
-.theme-tile .theme-count{margin-top:auto}
-.theme-story-head{background:#25395f;color:#fff;padding:18px 20px;border-radius:14px;font-size:1.35rem;margin-top:23px}
-.library-story-heading{background:linear-gradient(110deg,#255e4d,#397d66);padding:20px 24px;border-radius:17px;color:white;margin:18px 0 24px}
-.library-story-heading span{color:#f6df9c;font-size:.75rem;font-weight:900;letter-spacing:.09em}
-.library-story-heading h2{font-size:1.5rem;margin:7px 0}.library-story-heading p{margin:0;color:#eef8f2}
-.atlas-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
-.atlas-card{border:2px solid #68a68d}
-.atlas-card .atlas-art{height:165px;aspect-ratio:auto;object-fit:cover;background:#ece9df}
-.atlas-card .atlas-title{font-size:1.12rem}
-.atlas-card .atlas-action{color:#287052}
-@media(max-width:540px){.theme-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.theme-tile img{height:160px}.atlas-grid{grid-template-columns:1fr}.library-story-heading{padding:17px}}
-</style>
-<style id="chronogramme-v63-gallery-clean">
-/* Theme cover art IS the card: no double border, no brown letterboxing. */
-.theme-grid{grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:18px;align-items:start}
-.theme-grid .theme-tile{display:block!important;min-width:0;overflow:visible!important;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:0!important;text-align:center!important;position:relative;transform:translateZ(0);transition:transform .18s ease,filter .18s ease}
-.theme-grid .theme-tile:hover{transform:translateY(-4px);filter:drop-shadow(0 6px 8px #0002)}
-.theme-grid .theme-tile:focus-visible{outline:3px solid #b88a41;outline-offset:4px;border-radius:9px}
-.theme-grid .theme-visual{display:block;position:relative;width:100%;aspect-ratio:2/3;overflow:hidden;border-radius:8px;background:#e8dfcd;box-shadow:0 5px 13px #1d1b2030}
-.theme-grid .theme-visual img{display:block!important;width:100%!important;height:100%!important;aspect-ratio:auto!important;object-fit:contain!important;background:transparent!important;border:0!important}
-.theme-grid .theme-premium .theme-visual{background:transparent;box-shadow:0 5px 13px #1d1b2030}
-.theme-grid .theme-standard .theme-visual{border:1px solid #c7a76b;border-radius:10px}
-.theme-grid .theme-overlay-title{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(17,29,48,.94));padding:30px 9px 12px;color:white;font-size:.94rem;font-weight:850;line-height:1.25;text-shadow:0 1px 2px #0007}
-.theme-grid .theme-status{display:flex;align-items:center;justify-content:center;gap:6px;margin:7px auto 0;color:#665d4c;font-size:.78rem;font-weight:700;line-height:1.4}
-.theme-grid .theme-status span{font-size:1.1rem;color:#9e742e}
-.theme-grid .theme-tile .theme-label,.theme-grid .theme-tile .theme-count,.theme-grid .theme-tile .library-era-kicker{display:none!important}
-@media(max-width:540px){.theme-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.theme-grid .theme-visual{aspect-ratio:2/3}.theme-grid .theme-overlay-title{font-size:.82rem;padding:24px 6px 10px}.theme-grid .theme-status{font-size:.73rem}}
-@media(prefers-reduced-motion:reduce){.theme-grid .theme-tile{transition:none}}
+
+
+<style id="chronogramme-v65-epochs">
+.epoch-heading{margin:20px 0 16px;padding:18px 20px;border-radius:16px;background:linear-gradient(110deg,#273c63,#405b86);color:#fff}
+.epoch-eyebrow{display:block;font-size:.75rem;letter-spacing:.12em;font-weight:900;color:#f5d69c}
+.epoch-heading h2{margin:5px 0 4px;font-size:1.45rem;color:#fff}.epoch-heading p{margin:0;color:#e6eaf4;font-size:.92rem}
+.epoch-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:20px 18px;margin:18px 0 32px;align-items:start}
+.epoch-item{display:flex;flex-direction:column;align-items:stretch;gap:0;min-width:0;width:100%;border:0;background:transparent;box-shadow:none;padding:0;margin:0;color:inherit;text-align:center;cursor:pointer;transition:transform .18s ease}
+.epoch-item:hover{transform:translateY(-4px)}.epoch-item:focus-visible{outline:3px solid #b88937;outline-offset:5px;border-radius:10px}
+.epoch-cover{position:relative;display:block;width:100%;aspect-ratio:2/3;overflow:hidden;border-radius:9px;background:#f2eee5;box-shadow:0 7px 17px rgba(25,30,45,.16)}
+.epoch-cover img{display:block;width:100%;height:100%;object-fit:cover;border:0;background:transparent}
+.epoch-premium .epoch-cover{background:transparent;box-shadow:0 7px 17px rgba(25,30,45,.12)}
+.epoch-premium .epoch-cover img{object-fit:contain}
+.epoch-regular .epoch-cover{background:#d8c7a8}
+.epoch-title{position:absolute;bottom:0;left:0;right:0;padding:32px 9px 14px;color:#fff;background:linear-gradient(transparent,rgba(18,28,46,.94));font-size:1rem;font-weight:850;line-height:1.25;text-shadow:0 1px 3px #0008}
+.epoch-count{font-size:.79rem;line-height:1.5;color:#655c51;padding:8px 2px 0;font-weight:750}
+.epoch-count span{color:#9b742e;font-size:1.1rem}
+@media(max-width:540px){.epoch-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px}.epoch-title{font-size:.85rem;padding:28px 6px 11px}.epoch-heading{padding:16px}.epoch-heading h2{font-size:1.2rem}}
+@media(prefers-reduced-motion:reduce){.epoch-item{transition:none}}
 </style>
 </head>
 <body>
@@ -1084,13 +1069,13 @@ function renderAtlas(){
   if(!posts.length){h+='<div class="theme-empty">Les histoires de ce thème seront ajoutées prochainement. Tu peux déjà découvrir sa carte historique.</div>';}
   else {h+='<div class="atlas-grid">';posts.forEach(function(p){h+='<button class="atlas-card" type="button" data-atlas-open="'+esc(p.id)+'" aria-label="Ouvrir : '+esc(p.m)+'"><img class="atlas-art" src="assets/posts/'+esc(p.id)+'.webp" loading="lazy" alt="Illustration artistique pour '+esc(p.m)+'"><span class="atlas-info"><span class="atlas-grade">HISTOIRE · '+esc(p.who)+' · '+esc(p.date)+'</span><strong class="atlas-title">'+esc(p.m)+'</strong><span class="atlas-meta">'+esc(p.lieu)+'</span><span class="atlas-action">Lire l’histoire et enquêter →</span></span></button>';});h+='</div>';}
  }else{
-  h+='<h2 class="theme-story-head">ÉTAPE 1 · Choisis une époque ou une civilisation · '+esc(atlasLevel)+'e</h2><div class="theme-grid">';
+  h+='<div class="epoch-heading"><span class="epoch-eyebrow">NIVEAU 1 · ÉPOQUES</span><h2>Choisis une époque</h2><p>Touche une couverture pour découvrir les histoires de cette période.</p></div><div class="epoch-gallery">';
   themes.forEach(function(t,i){
    var premium=(t.image==='01_la_prehistoire.webp'||t.image==='02_les_premiers_paysans.webp');
-   h+='<button type="button" class="theme-tile '+(premium?'theme-premium':'theme-standard')+'" data-theme-open="'+i+'" aria-label="Explorer l’époque : '+esc(t.title)+'">';
-   h+='<span class="theme-visual"><img src="'+atlasThemeImage(t)+'" loading="lazy" alt="'+esc(t.title)+'">';
-   if(!premium)h+='<span class="theme-overlay-title">'+esc(t.title)+'</span>';
-   h+='</span><span class="theme-status">'+(t.ids.length?t.ids.length+' histoire'+(t.ids.length>1?'s':''):'À découvrir')+' <span aria-hidden="true">›</span></span></button>';
+   h+='<button type="button" class="epoch-item '+(premium?'epoch-premium':'epoch-regular')+'" data-theme-open="'+i+'" aria-label="Explorer '+esc(t.title)+'">';
+   h+='<span class="epoch-cover"><img src="'+atlasThemeImage(t)+'" loading="lazy" alt="'+esc(t.title)+'" onerror="this.onerror=null;this.src=\'assets/illustrations/egypt.webp\'">';
+   if(!premium)h+='<span class="epoch-title">'+esc(t.title)+'</span>';
+   h+='</span><span class="epoch-count">'+(t.ids.length?t.ids.length+' histoire'+(t.ids.length>1?'s':''):'À découvrir')+' <span aria-hidden="true">›</span></span></button>';
   });
   h+='</div>';
  }
