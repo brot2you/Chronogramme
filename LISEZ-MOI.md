@@ -11,3 +11,7 @@ Extraire le ZIP puis copier **index.html et tout le dossier assets** à la racin
 ## État de publication
 
 Le code de la galerie peut être poussé séparément. La fresque panoramique ne sera visible qu'une fois son fichier WebP transféré dans le dépôt au chemin indiqué.
+
+
+## V6.4 - optimisation
+Les illustrations deja presentes dans assets/histoires ont ete converties en WebP pour reduire le poids. Les futures couvertures 03 a 12 peuvent etre ajoutees en PNG comme prevu. Les fichiers du site restent a la racine du ZIP.
