@@ -284,7 +284,7 @@ button{font:inherit;color:inherit}
 @media(min-width:850px){.atlas-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}}
 @media(max-width:390px){.atlas-grid{gap:9px}.atlas-info{padding:9px}.atlas-title{font-size:.82rem}.atlas-meta{font-size:.69rem}}
 
-</style>
+.history-theme{margin:18px 0 25px}.history-theme h2{margin:0 0 6px}.history-theme p{margin:0 0 12px}.history-theme-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:14px}.history-theme-grid figure{margin:0;background:#24150b;border-radius:12px;padding:7px;color:#fff;text-align:center}.history-theme-grid img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:contain}.history-theme-grid figcaption{padding:8px 3px;font-size:.85rem}</style>
 <link rel="stylesheet" href="assets/v3.css">
 </head>
 <body>
@@ -431,7 +431,7 @@ function postHTML(p){
   var hidden = p.hide && !sol;
   var h = '<article class="post' + (p.grave ? ' grave' : '') + '" id="post-' + p.id + '" style="--pc:var(--p-' + p.p + ');--pt:var(--t-' + p.p + ')">';
   h += '<div class="ph"><span class="av" aria-hidden="true">' + esc(p.av) + '</span><div class="ph-t"><b>' + esc(p.who) + '</b><span>' + esc(p.lieu) + ', ' + (hidden ? '<span class="lock">date à trouver</span>' : esc(p.date).replace(/(\d) (\d)/g, '$1\u202F$2')) + '</span></div><span class="mtag">' + T.e + ' ' + T.tag + '</span></div>';
-  h += '<div class="media" style="background-image:url(' + historyArtOrDefault(p) + ')"><span class="cover-index">ARCHIVE N° ' + esc(p.id.substring(1).padStart(2,'0')) + '</span><span class="ml">' + p.n + 'e · ' + esc(p.ch) + '</span><h2>' + esc(p.m) + '</h2><span class="cover-note">Visuel d’ambiance · reconstitution artistique</span>' + (sol ? stampHTML(sol, p) : '') + '</div>';
+  h += '<div class="media" style="background-image:url(' + 'assets/posts/'+p.id+'.webp' + ')"><span class="cover-index">ARCHIVE N° ' + esc(p.id.substring(1).padStart(2,'0')) + '</span><span class="ml">' + p.n + 'e · ' + esc(p.ch) + '</span><h2>' + esc(p.m) + '</h2><span class="cover-note">Visuel d’ambiance · reconstitution artistique</span>' + (sol ? stampHTML(sol, p) : '') + '</div>';
   h += '<div class="acts">';
   if (!p.grave) h += '<button type="button" class="ib like" data-like="' + p.id + '" aria-pressed="' + liked + '" aria-label="J’aime">' + IC.heart + '<span>' + fmtN(seedLikes(p.id) + (liked ? 1 : 0)) + '</span></button>';
   else h += '<span class="ib" style="font-weight:700;color:var(--ink-soft)">Publication de mémoire</span>';
@@ -1019,8 +1019,14 @@ function renderAtlas(){
  h+='<h2 class="page-title">La galerie des 51 histoires</h2><p class="page-desc">Explore les couvertures, choisis une époque et ouvre son enquête. Les scènes sont des reconstitutions artistiques, pas des documents d’archives.</p></div>';
 h+='</div><div class="atlas-filters" role="group" aria-label="Choisir le niveau">';
  [['all','Toutes'],['6','6e'],['5','5e'],['4','4e'],['3','3e']].forEach(function(f){h+='<button class="atlas-chip" type="button" data-atlas-level="'+f[0]+'" aria-pressed="'+(atlasLevel===f[0])+'">'+f[1]+'</button>';});
- h+='<span class="atlas-count">'+list.length+' histoires</span></div><div class="atlas-grid">';
- list.forEach(function(p){h+='<button class="atlas-card" type="button" data-atlas-open="'+esc(p.id)+'" aria-label="Ouvrir : '+esc(p.m)+'"><img class="atlas-art" src="'+historyArtOrDefault(p)+'" loading="lazy" alt="Illustration artistique pour '+esc(p.m)+'"><span class="atlas-info"><span class="atlas-grade">'+esc(p.n)+'e · '+esc(p.date)+'</span><strong class="atlas-title">'+esc(p.m)+'</strong><span class="atlas-meta">'+esc(p.lieu)+'</span><span class="atlas-action">Ouvrir l’histoire ↗</span></span></button>';});
+ h+='<span class="atlas-count">'+list.length+' histoires</span></div>';
+  if(atlasLevel==='all'||atlasLevel==='6'){
+    h+='<section class="history-theme"><h2>Cartes historiques · 6e</h2><p>Collection des grandes périodes de l’histoire</p><div class="history-theme-grid">';
+    [['01_la_prehistoire.png','La Préhistoire'],['02_les_premiers_paysans.png','Les premiers paysans']].forEach(function(c){h+='<figure><img loading="lazy" src="assets/histoires/'+c[0]+'" alt="'+c[1]+'"><figcaption>'+c[1]+'</figcaption></figure>';});
+    h+='</div></section>';
+  }
+  h+='<div class="atlas-grid">';
+ list.forEach(function(p){h+='<button class="atlas-card" type="button" data-atlas-open="'+esc(p.id)+'" aria-label="Ouvrir : '+esc(p.m)+'"><img class="atlas-art" src="'+('assets/posts/'+esc(p.id)+'.webp')+'" loading="lazy" alt="Illustration artistique pour '+esc(p.m)+'"><span class="atlas-info"><span class="atlas-grade">'+esc(p.n)+'e · '+esc(p.date)+'</span><strong class="atlas-title">'+esc(p.m)+'</strong><span class="atlas-meta">'+esc(p.lieu)+'</span><span class="atlas-action">Ouvrir l’histoire ↗</span></span></button>';});
  h+='</div>';
  $('atlas').innerHTML=h;
 }
