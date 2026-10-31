@@ -298,6 +298,8 @@ button{font:inherit;color:inherit}
 .theme-empty{border:1px dashed var(--line);border-radius:14px;padding:22px;color:var(--ink-soft)}
 .theme-story-head{margin:15px 0 20px}
 @media(max-width:540px){.theme-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.theme-tile .theme-label{font-size:.88rem}.theme-tile .theme-count{font-size:.75rem}.atlas-grid{grid-template-columns:1fr}}
+.mis-art{display:block;width:100%;height:auto;max-height:290px;object-fit:cover;object-position:center;border-radius:14px;margin:0 0 14px;box-shadow:0 4px 18px rgba(24,35,58,.14)}
+@media(max-width:600px){.mis-art{max-height:190px}}
 </style>
 <link rel="stylesheet" href="assets/v3.css">
 
@@ -520,6 +522,8 @@ function updateTop(){
 /* ---------- Missions ---------- */
 function missionHTML(p){
   var T = TYPES[p.mi.type], sol = S.solved[p.id], mi = p.mi, h = '<div class="mis" id="mis-' + p.id + '">';
+  var art = {ana:'anachronisme.webp',vf:'vrai_faux.webp',src:'critique_de_source.webp',dat:'datation.webp'}[mi.type];
+  if (art) h += '<img class="mis-art" src="assets/enquetes/' + art + '" alt="Illustration : ' + esc(T.tag) + '" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">';
   h += '<p class="mis-h">' + T.h + '</p>';
   if (mi.q) h += '<p class="mis-c"><b>' + esc(mi.q) + '</b></p>';
   else h += '<p class="mis-c">' + T.c + '</p>';
