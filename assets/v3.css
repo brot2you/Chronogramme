@@ -168,3 +168,9 @@
 @media(max-width:760px){.v3-feature{grid-template-columns:105px 1fr;min-height:172px}.v3-feature-art{min-height:172px}.v3-feature-copy{padding:13px}.v3-feature-copy strong{font-size:1rem;margin:5px 0}.v3-feature-copy p{font-size:.74rem;margin-bottom:8px}.v3-feature-footer button{min-height:38px;padding:8px 10px}.v3-feature-copy .mini-eyebrow{font-size:.56rem;letter-spacing:.07em}}
 @media(max-width:410px){.v3-feature{grid-template-columns:1fr}.v3-feature-art{height:132px;min-height:132px}.v3-feature-copy{padding:14px 16px}.v3-feature-copy strong{font-size:1.06rem}.v3-feature-footer{gap:8px}}
 .brand::before{content:'';background:#1c3046 url('illustrations/logo.webp') center/cover no-repeat;box-shadow:none}
+
+/* V6 : nouvel univers visuel de l'accueil et emblème illustré */
+.v3-home-hero{background-image:url('illustrations/accueil-aventure.webp');background-position:center right;background-size:cover;min-height:390px}
+.v3-home-hero::before{background:linear-gradient(90deg,rgba(12,28,47,.98) 0%,rgba(12,28,47,.96) 28%,rgba(12,28,47,.82) 49%,rgba(12,28,47,.18) 78%,rgba(12,28,47,.02) 100%)}
+.brand::before{content:''!important;background:#f3e4c5 url('icon-premium.png') center/cover no-repeat!important;border-radius:11px!important;box-shadow:0 2px 8px rgba(17,28,44,.18)}
+@media(max-width:700px){.v3-home-hero{background-position:62% center;min-height:350px}.v3-home-hero::before{background:linear-gradient(90deg,rgba(12,28,47,.97),rgba(12,28,47,.85) 68%,rgba(12,28,47,.48))}}
