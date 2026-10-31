@@ -336,6 +336,13 @@ button{font:inherit;color:inherit}
 .media:has(.story-cover-img)>:not(.story-cover-img){z-index:2}
 .dossier-art{background-image:none!important}
 .case-cover{background-image:none!important}
+<style id="archive-image-visibility-fix">
+/* Images d'archives : priorite explicite sur les anciens styles. */
+.post .media{isolation:isolate;background:#1c3046}
+.post .media img.story-cover-img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;display:block!important;visibility:visible!important;opacity:1!important;object-fit:cover!important;z-index:0!important;filter:none!important}
+.post .media:has(img.story-cover-img)::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(9,20,34,.04) 10%,rgba(9,20,34,.12) 42%,rgba(9,20,34,.86) 100%)!important;pointer-events:none}
+.post .media:has(img.story-cover-img)>:not(img.story-cover-img){position:relative;z-index:2}
+.post .media .cover-index{position:absolute!important;z-index:3!important}
 </style></head>
 <body>
 <div class="col">
