@@ -16,7 +16,7 @@
 .brand small{font-family:var(--sans);font-size:.61rem;text-transform:uppercase;letter-spacing:.13em;display:block;color:var(--ink-soft);font-weight:850;margin-top:3px}
 .pts{background:#233b53;color:#fff;border:1px solid #233b53;border-radius:11px;min-height:42px;padding:.3rem 1rem;font-size:.82rem;box-shadow:0 2px 0 #d4b37c}
 .hello{padding:0}
-.v3-home-hero{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;min-height:300px;padding:37px clamp(20px,4vw,52px);color:#fff;background:#172943 url('illustrations/cite.webp') center 41%/cover no-repeat}
+.v3-home-hero{position:relative;overflow:hidden;isolation:isolate;display:flex;align-items:center;min-height:300px;padding:37px clamp(20px,4vw,52px);color:#fff;background:#172943 none center 41%/cover no-repeat}
 .v3-home-hero::before{content:'';inset:0;position:absolute;z-index:-1;background:linear-gradient(90deg,rgba(15,29,48,.97),rgba(18,31,50,.89) 43%,rgba(17,29,49,.25))}
 .hero-text{max-width:610px;position:relative;z-index:1}
 .mini-eyebrow{font-size:.73rem;letter-spacing:.15em;text-transform:uppercase;font-weight:900;color:#d9b778;display:flex;align-items:center;gap:8px}
@@ -61,7 +61,7 @@
 .mis{margin:9px 14px 15px;background:var(--bg);border:1px solid var(--line);border-left:5px solid var(--pc);border-radius:12px}
 .mis-h{font-family:var(--sans);font-size:.92rem}
 .pagearea{padding:26px clamp(16px,3vw,34px) 52px}
-.page-banner{padding:32px 31px;min-height:210px;background:linear-gradient(100deg,rgba(19,32,50,.96),rgba(24,49,67,.72)),url('illustrations/uruk.webp') center/cover;display:flex;flex-direction:column;justify-content:center}
+.page-banner{padding:32px 31px;min-height:210px;background:linear-gradient(100deg,rgba(19,32,50,.96),rgba(24,49,67,.72)),none center/cover;display:flex;flex-direction:column;justify-content:center}
 .page-banner::after{content:'✧';color:#e5c28c;right:25px;top:-52px;opacity:.5}
 .page-banner .page-title{font-family:var(--display);font-size:clamp(1.55rem,3vw,2.65rem);max-width:50ch}
 .page-banner .page-desc{color:#f1ece0;max-width:54ch}
@@ -81,7 +81,7 @@
 .nb svg{height:21px;width:21px}.nb[aria-current="page"]{color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,transparent)}
 .nb .badge{font-size:.62rem}
 /* Premium dossier cards */
-.dossier-hero{position:relative;overflow:hidden;display:flex;min-height:265px;align-items:center;padding:30px;border-radius:22px;background:#15263e url('illustrations/berlin.webp') center/cover;color:white}
+.dossier-hero{position:relative;overflow:hidden;display:flex;min-height:265px;align-items:center;padding:30px;border-radius:22px;background:#15263e none center/cover;color:white}
 .dossier-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,31,46,.98),rgba(23,35,51,.90) 51%,rgba(22,38,57,.1))}
 .dossier-hero>*{position:relative;z-index:1;max-width:610px}
 .dossier-hero h2{font-family:var(--display);font-size:clamp(1.9rem,4vw,3.1rem);margin:10px 0 11px;line-height:1.07}
@@ -160,17 +160,17 @@
 .v3-feature-footer{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .v3-feature-footer span{font-size:.73rem;color:var(--ink-soft);font-weight:800}
 .v3-feature-footer button{min-height:42px;border:0;background:#263e53;color:#fff;padding:9px 14px;border-radius:9px;cursor:pointer;font-weight:850;font-size:.78rem}
-.story[data-per="pre"] .ring span{background:#7d5643 url('illustrations/lascaux.webp') center/cover no-repeat;font-size:0}
-.story[data-per="ant"] .ring span{background:#445066 url('illustrations/uruk.webp') center/cover no-repeat;font-size:0}
-.story[data-per="moy"] .ring span{background:#345b71 url('illustrations/cite.webp') center/cover no-repeat;font-size:0}
-.story[data-per="mod"] .ring span{background:#6c5a52 url('illustrations/1492.webp') center/cover no-repeat;font-size:0}
-.story[data-per="cont"] .ring span{background:#3d4b6a url('illustrations/berlin.webp') center/cover no-repeat;font-size:0}
+.story[data-per="pre"] .ring span{background:#7d5643 none center/cover no-repeat;font-size:0}
+.story[data-per="ant"] .ring span{background:#445066 none center/cover no-repeat;font-size:0}
+.story[data-per="moy"] .ring span{background:#345b71 none center/cover no-repeat;font-size:0}
+.story[data-per="mod"] .ring span{background:#6c5a52 none center/cover no-repeat;font-size:0}
+.story[data-per="cont"] .ring span{background:#3d4b6a none center/cover no-repeat;font-size:0}
 @media(max-width:760px){.v3-feature{grid-template-columns:105px 1fr;min-height:172px}.v3-feature-art{min-height:172px}.v3-feature-copy{padding:13px}.v3-feature-copy strong{font-size:1rem;margin:5px 0}.v3-feature-copy p{font-size:.74rem;margin-bottom:8px}.v3-feature-footer button{min-height:38px;padding:8px 10px}.v3-feature-copy .mini-eyebrow{font-size:.56rem;letter-spacing:.07em}}
 @media(max-width:410px){.v3-feature{grid-template-columns:1fr}.v3-feature-art{height:132px;min-height:132px}.v3-feature-copy{padding:14px 16px}.v3-feature-copy strong{font-size:1.06rem}.v3-feature-footer{gap:8px}}
-.brand::before{content:'';background:#1c3046 url('illustrations/logo.webp') center/cover no-repeat;box-shadow:none}
+.brand::before{content:'';background:#1c3046 none center/cover no-repeat;box-shadow:none}
 
 /* V6 : nouvel univers visuel de l'accueil et emblème illustré */
-.v3-home-hero{background-image:url('illustrations/accueil-aventure.webp');background-position:center right;background-size:cover;min-height:390px}
+.v3-home-hero{background-image:none;background-position:center right;background-size:cover;min-height:390px}
 .v3-home-hero::before{background:linear-gradient(90deg,rgba(12,28,47,.98) 0%,rgba(12,28,47,.96) 28%,rgba(12,28,47,.82) 49%,rgba(12,28,47,.18) 78%,rgba(12,28,47,.02) 100%)}
 .brand::before{content:''!important;background:#f3e4c5 url('icon-premium.png') center/cover no-repeat!important;border-radius:11px!important;box-shadow:0 2px 8px rgba(17,28,44,.18)}
 @media(max-width:700px){.v3-home-hero{background-position:62% center;min-height:350px}.v3-home-hero::before{background:linear-gradient(90deg,rgba(12,28,47,.97),rgba(12,28,47,.85) 68%,rgba(12,28,47,.48))}}
